@@ -1,0 +1,6 @@
+.gitignore
+.idea/
+__pycache__/
+requirements.txt
+venv/
+motus/config.py
