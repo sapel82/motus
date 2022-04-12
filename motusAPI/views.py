@@ -2,7 +2,7 @@ import json
 from django.http import HttpResponse
 from django.core import serializers
 from motus.config import motus_api_version, motus_api_name
-from motusAPI.models import Profile, Gender
+from motusAPI.models import User, Gender
 
 
 def api_startpage(request) -> HttpResponse:
@@ -14,9 +14,9 @@ def api_startpage(request) -> HttpResponse:
 
 def api_profile_call(request, profile_id: int = None) -> HttpResponse:
     if profile_id:
-        data = serializers.serialize('json', Profile.objects.filter(id=profile_id))
+        data = serializers.serialize('json', User.objects.filter(id=profile_id))
     else:
-        data = serializers.serialize('json', Profile.objects.all())
+        data = serializers.serialize('json', User.objects.all())
     return HttpResponse(data, content_type='json')
 
 

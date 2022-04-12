@@ -1,22 +1,16 @@
-from django.db.models import Model, IntegerField, CharField, ForeignKey, DO_NOTHING
+from datetime import datetime
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.db import models
 
 
-class Gender(Model):
-    """
-    Gender Object for user profile.
-
-    Args:
-        title (str): name of the gender
-        icon (str): icon file used for the gender
-    Returns:
-        Gender (class)
-    """
+class Gender(models.Model):
+    """ Gender Object for user profile. """
 
     id = int
     objects = None
 
-    title = CharField(max_length=20)
-    icon = CharField(max_length=30)
+    title = models.CharField(max_length=20)
+    icon = models.CharField(max_length=30)
 
     class Meta:
         managed = True
@@ -31,32 +25,67 @@ class Gender(Model):
         return {'id': self.id, 'title': self.title, 'icon': self.icon}
 
 
-class Profile(Model):
-    """ Profile object.
-    
-    Args:
-        username (str): username/nickname of the user
-        email (str): email adress of the user
-        age (int): age of the user
-        gender (Gender): gender of the user
-    Returns:
-        Profile (class)
-    """
-    # TODO: one to one link with django auth_user
+class UserManager(BaseUserManager):
+    """ User Manager """
+    def create_user(self, username: str, email: str, date_of_birth: datetime, gender: Gender, password: str):
+        """
+        Create a new user
+
+        :param username: username of the user
+        :param email: email of the user
+        :param date_of_birth: birthdate of the user
+        :param gender: gender of the user
+        :param password: password of the user
+        :return: user object
+        """
+        if not all([username, email, date_of_birth, gender, password]):
+            raise ValueError('Missing userdata')
+
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+            date_of_birth=date_of_birth,
+            gender=gender
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+
+class User(AbstractBaseUser):
+    """ User object """
 
     id = int
-    objects = None
+    objects = UserManager()
 
-    username = CharField(max_length=30)
-    email = CharField(max_length=50)
-    age = IntegerField()
-    gender = ForeignKey(Gender, on_delete=DO_NOTHING)
+    username = models.CharField(max_length=30, unique=True, verbose_name='Benutzername')
+    email = models.EmailField(max_length=255, unique=True, verbose_name='E-Mail Adresse')
+    date_of_birth = models.DateTimeField(auto_now=True, blank=True, verbose_name='Geburtsdatum')
+    gender = models.ForeignKey(Gender, on_delete=models.DO_NOTHING, verbose_name='Geschlecht')
+
+    is_active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False)  # staff
+    admin = models.BooleanField(default=False)  # superuser
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = 'username'
 
     class Meta:
         managed = True
-        db_table = 'profile'
-        verbose_name = 'Profil'
-        verbose_name_plural = 'Profile'
+        db_table = 'user'
+        verbose_name = 'Benutzer'
+        verbose_name_plural = 'Benutzer'
+
+    @property
+    def is_staff(self) -> models.BooleanField:
+        """ Is the user a staff member?"""
+        return self.staff
+
+    @property
+    def is_admin(self) -> models.BooleanField:
+        """ Is the user a admin member?"""
+        return self.admin
 
     def __str__(self) -> str:
         return 'Profile: {id} - {username} - {age} - {gender} - {email}'.format(

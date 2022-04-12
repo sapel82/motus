@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from .config import DB_DATABASE, DB_HOST, DB_PASSWORD, DB_USER
+import django_extensions
 
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'motusApp',
     'motusAPI',
 ]
