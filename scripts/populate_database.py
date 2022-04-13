@@ -10,4 +10,4 @@ male = Gender.objects.get(title='männlich')
 female = Gender.objects.get(title='weiblich')
 
 stefan = User.objects.create_user('Stefan', 'mail1@mail.de', datetime(1982, 3, 13, 0, 0, 0), male, '123')
-melissa = User.objects.create_user('Melissa' 'mai2l@mail.de', datetime(1987, 8, 11, 0, 0, 0), female, '456')
+melissa = User.objects.create_user('Melissa', 'mail2@mail.de', datetime(1987, 8, 11, 0, 0, 0), female, '456')
