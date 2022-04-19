@@ -113,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'motusAPI.User'
+
 LOGIN_REDIRECT_URL = '/app/login/'
 LOGIN_URL = '/app/login/'
 

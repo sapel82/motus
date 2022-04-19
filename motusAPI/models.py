@@ -69,7 +69,7 @@ class User(AbstractBaseUser):
     admin = models.BooleanField(default=False)  # superuser
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = 'username'
+    # REQUIRED_FIELDS = 'username'
 
     class Meta:
         managed = True
@@ -88,8 +88,8 @@ class User(AbstractBaseUser):
         return self.admin
 
     def __str__(self) -> str:
-        return 'Profile: {id} - {username} - {age} - {gender} - {email}'.format(
-            id=self.id, username=self.username, age=self.age, gender=self.gender, email=self.email
+        return 'Profile: {id} - {username} - {gender} - {email}'.format(
+            id=self.id, username=self.username, gender=self.gender, email=self.email
         )
 
     def as_dict(self) -> dict:

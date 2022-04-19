@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 <main class="container-fluid form-signin p0 m0">
     <div class="row">
-        <form action="/login/" method="get">
-            <img class="mb-4" src="/static/media/pictures/motus_logo2.png" alt="" width="80%">
-            <h1 class="display-6">Willkommen bei motus!</h1>
-            <h2 class="display-6">Bitte logge dich ein.</h2>
-            <br />
 
+        <img class="mb-4 mx-auto" style="width:80%; height: auto;" src="{% static 'media/pictures/motus_logo2.png' %}" alt="" />
+        <h1 class="display-6">Willkommen bei motus!</h1>
+        <h2 class="display-6">Bitte logge dich ein.</h2>
+        <br />
+
+        <form action="/app/login/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next_url" value="{{ next_url }}" />
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@mail.de">
-                <label for="floatingInput">E-Mail Adresse</label>
+                <input class="form-control" name="username" id="floatingInput" placeholder="JohnDoe123">
+                <label for="floatingInput">Benutzername</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Passwort">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Passwort">
                 <label for="floatingPassword">Passwort</label>
             </div>
 
