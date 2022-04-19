@@ -1,7 +1,64 @@
-body {
-    padding-top: 5rem;
+/* Motus App CSS */
+
+html {
+    position: relative;
+    min-height: 100%;
+    /* font-size: calc(1em + 1vw); */
 }
-.starter-template {
-    padding: 3rem 1.5rem;
+
+body {
+    margin-bottom: 60px;
+}
+
+/* Navbar */
+.navbar-expand-md {
+    background-color: #AA96DA !important;
+}
+
+.navbar-brand {
+    color: #2c3034 !important;
+}
+
+.bg-navbar {
+    background-color: #0c63e4 !important;
+}
+
+/* Login Form */
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* Footer */
+.footer {
+    color: rgba(0,0,0,.55);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #AA96DA;
     text-align: center;
 }

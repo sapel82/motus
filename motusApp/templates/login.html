@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main class="container-fluid form-signin p0 m0">
+    <div class="row">
+        <form action="/login/" method="get">
+            <img class="mb-4" src="/static/media/pictures/motus_logo2.png" alt="" width="80%">
+            <h1 class="display-6">Willkommen bei motus!</h1>
+            <h2 class="display-6">Bitte logge dich ein.</h2>
+            <br />
+
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@mail.de">
+                <label for="floatingInput">E-Mail Adresse</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Passwort">
+                <label for="floatingPassword">Passwort</label>
+            </div>
+
+            <p>Noch kein Konto? Hier <a style="color:#AA96DA" href="{% url 'register' %}">registrieren</a>.</p>
+            <button class="w-100 btn btn-lg btn-primary" style="background-color:#AA96DA; border-color: #777777" type="submit">Einloggen</button>
+        </form>
+    </div>
+</main>
+{% endblock %}
