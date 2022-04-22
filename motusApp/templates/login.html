@@ -3,28 +3,39 @@
 {% block content %}
 
 <main class="container-fluid form-signin p0 m0">
-    <div class="row">
+  <div class="row">
 
-        <img class="mb-4 mx-auto" style="width:80%; height: auto;" src="{% static 'media/pictures/motus_logo2.png' %}" alt="" />
-        <h1 class="display-6">Willkommen bei motus!</h1>
-        <h2 class="display-6">Bitte logge dich ein.</h2>
-        <br />
+    <img class="mb-4 mx-auto" style="width:80%; height: auto;" src="{% static 'media/pictures/motus_logo2.png' %}" alt="" />
+    <h1 class="display-6 text-center mb-4" style="font-size: 22px;">WILLKOMMEN BEI MOTUS! <i class="fa-solid fa-heart brand-color"></i></h1>
+    <h2 class="display-6 text-center" style="font-size: 18px;">BITTE LOGGE DICH EIN.</h2>
+    <hr class="mt-2 mb-4"/>
 
-        <form action="/app/login/" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="next_url" value="{{ next_url }}" />
-            <div class="form-floating">
-                <input class="form-control" name="username" id="floatingInput" placeholder="JohnDoe123">
-                <label for="floatingInput">Benutzername</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Passwort">
-                <label for="floatingPassword">Passwort</label>
-            </div>
-
-            <p>Noch kein Konto? Hier <a style="color:#AA96DA" href="{% url 'register' %}">registrieren</a>.</p>
-            <button class="w-100 btn btn-lg btn-primary" style="background-color:#AA96DA; border-color: #777777" type="submit">Einloggen</button>
-        </form>
+    {% if alerts %}
+    <div class="alert alert-danger" role="alert">
+      <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> Huch, da stimmt etwas nicht:</h6>
+      {% for a in alerts %}
+      {{ a | safe }}
+      {% endfor %}
     </div>
+    {% endif %}
+
+    <form action="/app/login/" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next_url" value="{{ next_url }}" />
+      <div class="form-floating mb-2">
+        <input class="form-control" name="username" id="floatingInput" placeholder="JohnDoe123" autofocus
+               required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib deinen Benutzernamen ein')">
+        <label for="floatingInput">Benutzername</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Passwort"
+               required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib dein Passwort ein')">
+        <label for="floatingPassword">Passwort</label>
+      </div>
+
+      <p>Noch kein Konto? Hier <a href="{% url 'register' %}">registrieren</a>.</p>
+      <button class="w-100 btn btn-lg btn-primary motus-button" type="submit">Einloggen</button>
+    </form>
+  </div>
 </main>
 {% endblock %}

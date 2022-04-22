@@ -1,11 +1,11 @@
 from django.urls import path
-from motusApp.views import app_login, app_logout, register, index
+from motusApp.views import app_login, app_logout, app_register, app_index, app_profile, app_activate_profile
 
 
 urlpatterns = [
     path(
         '',
-        index,
+        app_index,
         name='index'
     ),
     path(
@@ -20,8 +20,17 @@ urlpatterns = [
     ),
     path(
         'register/',
-        register,
+        app_register,
         name='register'
     ),
-
+    path(
+        'profile/',
+        app_profile,
+        name='profile'
+    ),
+    path(
+        'activate/<activation_code>/',
+        app_activate_profile,
+        name='activate_profile'
+    ),
 ]

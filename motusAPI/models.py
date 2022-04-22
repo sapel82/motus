@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import date
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
+import random
 
 
 class Gender(models.Model):
@@ -27,7 +28,7 @@ class Gender(models.Model):
 
 class UserManager(BaseUserManager):
     """ User Manager """
-    def create_user(self, username: str, email: str, date_of_birth: datetime, gender: Gender, password: str):
+    def create_user(self, username: str, email: str, date_of_birth: date, gender: Gender, password: str):
         """
         Create a new user
 
@@ -49,8 +50,16 @@ class UserManager(BaseUserManager):
         )
 
         user.set_password(password)
+        user.activation_code = self.create_activation_code(7)
+
         user.save(using=self._db)
         return user
+
+    @staticmethod
+    def create_activation_code(length: int) -> int:
+        min_value = pow(10, length-1)
+        max_value = pow(10, length) - 1
+        return random.randint(min_value, max_value)
 
 
 class User(AbstractBaseUser):
@@ -61,15 +70,15 @@ class User(AbstractBaseUser):
 
     username = models.CharField(max_length=30, unique=True, verbose_name='Benutzername')
     email = models.EmailField(max_length=255, unique=True, verbose_name='E-Mail Adresse')
-    date_of_birth = models.DateTimeField(auto_now=True, blank=True, verbose_name='Geburtsdatum')
+    date_of_birth = models.DateField(auto_now=False, blank=True, verbose_name='Geburtsdatum')
     gender = models.ForeignKey(Gender, on_delete=models.DO_NOTHING, verbose_name='Geschlecht')
+    activation_code = models.IntegerField(unique=True, default=123456789, verbose_name='Aktivierungscode')
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)  # staff
     admin = models.BooleanField(default=False)  # superuser
 
     USERNAME_FIELD = 'username'
-    # REQUIRED_FIELDS = 'username'
 
     class Meta:
         managed = True
@@ -86,6 +95,11 @@ class User(AbstractBaseUser):
     def is_admin(self) -> models.BooleanField:
         """ Is the user a admin member?"""
         return self.admin
+
+    @property
+    def is_account_active(self) -> models.BooleanField:
+        """ Is the user account active? """
+        return self.is_active
 
     def __str__(self) -> str:
         return 'Profile: {id} - {username} - {gender} - {email}'.format(

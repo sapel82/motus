@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="container-fluid form-signin p0 m0">
+    <div class="row">
+
+        <h1 class="display-6 text-center" style="font-size: 18px;"><i class="fa-solid fa-clipboard-user brand-color"></i> BITTE ERSTELLE EINEN ACCOUNT</h1>
+        <hr class="mt-2 mb-4"/>
+        <form action="/app/register/" method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" name="username" id="username" placeholder="JohnDoe123" autofocus
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib einen Benutzernamen ein')">
+                <label for="username">Benutzername</label>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input type="email" class="form-control" name="email" id="email" placeholder="name@mail.de"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib eine gültige E-Mail Adresse ein')">
+                <label for="email">E-Mail Adresse</label>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" name="password" id="password" placeholder="13324"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib ein Passwort ein')">
+                <label for="password">Passwort</label>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" placeholder="Geburtsdatum"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte wähle dein Geburtsdatum aus')">
+                <label for="dateOfBirth">Geburtsdatum</label>
+            </div>
+
+            <div class="input-group mb-2 w-100">
+                <div class="input-group-prepend w-40 bg-white">
+                    <label class="input-group-text bg-white" for="gender">Geschlecht</label>
+                </div>
+                <select class="custom-select w-60" name="gender" id="gender" required>
+                    <option value="">Bitte wähle...</option>
+                    <option value="männlich">männlich</option>
+                    <option value="weiblich">weiblich</option>
+                    <option value="divers">divers</option>
+                </select>
+            </div>
+
+            <div class="form-check mb-2">
+                <input type="checkbox" class="form-check-input" value="" name="agree" id="agree"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Um fortzufahren, musst du den Bedingungen zustimmen')">
+                <label class="form-check-label" for="agree">
+                    Ich stimme den <a href="#" onclick="showEULA()">Nutzungsbedingungen</a> und <a href="#" onclick="showUseOfData()">Datenschutzrichtlinien</a> zu.
+                </label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary motus-button" type="submit">Account erstellen</button>
+        </form>
+
+        <div class="modal fade" id="eulaModal" tabindex="-1" aria-labelledby="eulaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eulaLabel"><i class="fa-solid fa-file-contract"></i>  Nutzungsbedingungen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                        <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+                        <p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
+                        <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
+                        <p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</p>
+                        <p>Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="useOfDataModal" tabindex="-1" aria-labelledby="useOfDataLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="useOfDataLabel"><i class="fa-solid fa-file-contract"></i> Datenschutzrichtlinien</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                        <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+                        <p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
+                        <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
+                        <p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</p>
+                        <p>Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

@@ -27,13 +27,19 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav mx-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link display-3" aria-current="page" href="#"><i class="fa-solid fa-address-card"></i> Profil</a>
+                  <a class="nav-link display-4" href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Startseite</a>
                 </li>
+                <hr class="mt-2 mb-3"/>
                 <li class="nav-item">
-                  <a class="nav-link display-3" href="#"><i class="fa-solid fa-chart-bar"></i> Statistik</a>
+                  <a class="nav-link display-4" href="{% url 'profile' %}"><i class="fa-solid fa-address-card"></i> Profil</a>
                 </li>
+                <hr class="mt-2 mb-3"/>
                 <li class="nav-item">
-                  <a class="nav-link display-3" href="#"><i class="fa-solid fa-circle-question"></i> Hilfe</a>
+                  <a class="nav-link display-4" href="#"><i class="fa-solid fa-chart-bar"></i> Statistik</a>
+                </li>
+                <hr class="mt-2 mb-3"/>
+                <li class="nav-item">
+                  <a class="nav-link display-4" href="#"><i class="fa-solid fa-circle-question"></i> Hilfe</a>
                 </li>
               </ul>
             </div>
@@ -51,7 +57,9 @@
       </div>
     </footer>
 
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/motus.js' %}"></script>
     <script src="https://kit.fontawesome.com/b048ccd3c9.js" crossorigin="anonymous"></script>
 
   </body>
