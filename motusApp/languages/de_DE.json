@@ -1,0 +1,72 @@
+{
+  "MOTUS_COPYRIGHT_SHORT": "motus, 2022",
+  "MOTUS_NAV_MAIN_PAGE": "Startseite",
+  "MOTUS_NAV_PROFILE": "Profil",
+  "MOTUS_NAV_STATISTICS": "Statistik",
+  "MOTUS_NAV_HELP": "Hilfe",
+
+  "MAIL_REGISTER_SUBJECT": "Willkommen bei motus - Registrierungsmail",
+  "MAIL_REGISTER_MSG": "Hallo {username},\num deinen Account zu aktivieren, klickte bitte auf den folgenden Link.\n\nhttp://78.47.48.92:8000/app/activate/{activation_code}/",
+
+  "ERROR_STANDARD": "Huch, da stimmt etwas nicht",
+
+  "ERROR_LOGIN_FAILED": "<p>Login fehlgeschlagen!</p><p>Was kannst du tun?</p><p>1. Bitte überprüfe Benutzername und Passwort.</p><p>2. Vergewissere dich, dass du den Bestätigungslink in deiner Email angeklickt hast.</p>",
+  "ERROR_LOGOUT_FAILED": "Kein Benutzer zum Ausloggen gefunden",
+
+  "ERROR_USERNAME_NOT_AVAILABLE": "Der gewählte Benutzername ist schon vergeben, bitte wähle einen anderen.",
+  "ERROR_EMAIL_NOT_AVAILABLE": "Die gewählte E-Mail Adresse wurde schon genutzt, bitte wähle eine andere.",
+  "ERROR_EMAIL_NOT_SEND": "Die Bestätigungsmail konnte nicht gesendet werden.",
+  "ERROR_USER_NOT_CREATED": "Das Benutzerprofil konnte nicht erstellt werden.",
+  "ERROR_MISSING_USERDATA": "Es fehlen wichtige Nutzerdaten",
+
+  "ERROR_ACTIVATION_CODE_NOT_FOUND": "Dieser Aktivierungscode ist keinem Benutzer zugeordnet.",
+
+  "LOGIN_WELCOME_MSG": "Willkommen bei motus!",
+  "LOGIN_PLS_LOGIN": "Bitte logge dich ein.",
+  "LOGIN_USERNAME": "Benutzername",
+  "LOGIN_USERNAME_NOT_VALID_MSG": "Bitte gib deinen Benutzernamen ein",
+  "LOGIN_PASSWORD": "Passwort",
+  "LOGIN_PASSWORD_NOT_VALID_MSG": "Bitte gib dein Passwort ein",
+  "LOGIN_NO_ACCOUNT_MSG": "Noch kein Konto? Hier registrieren.",
+  "LOGIN_LOGIN_BUTTON": "Einloggen",
+
+  "REGISTER_WELCOME_MSG": "Bitte erstelle einen Account",
+  "REGISTER_USERNAME": "Benutzername",
+  "REGISTER_USERNAME_NOT_VALD_MSG": "Bitte gib einen Benutzernamen ein",
+  "REGISTER_EMAIL": "E-Mail Adresse",
+  "REGISTER_EMAIL_NOT_VALID_MSG": "Bitte gib eine gültige E-Mail Adresse ein",
+  "REGISTER_PASSWORD": "Passwort",
+  "REGISTER_PASSWORD_NOT_VALID_MSG": "Bitte gib ein Passwort ein",
+  "REGISTER_DATE_OF_BIRTH": "Geburtsdatum",
+  "REGISTER_DATE_OF_BIRTH_NOT_VALID_MSG": "Bitte gib dein Geburtsdatum ein",
+  "REGISTER_GENDER": "Geschlecht",
+  "REGISTER_GENDER_SELECTOR": "Bitte wähle...",
+  "REGISTER_GENDER_MALE": "männlich",
+  "REGISTER_GENDER_FEMALE": "weiblich",
+  "REGISTER_GENDER_NON_BINARY": "divers",
+  "REGISTER_GENDER_NOT_AVAILABLE": "keine Angabe",
+  "REGISTER_GENDER_NOT_VALID_MSG": "Bitte wähle eine Option",
+  "REGISTER_LEGAL": "Ich stimme den <a href=\"#\" onclick=\"showEULA()\">Nutzungsbedingungen</a> und <a href=\"#\" onclick=\"showUseOfData()\">Datenschutzrichtlinien</a> zu.",
+  "REGISTER_LEGAL_NOT_VALID_MSG": "Um fortzufahren, musst du den Bedingungen zustimmen",
+  "REGISTER_EULA": "Nutzungsbedinungen",
+  "REGISTER_USE_OF_DATA": "Datenschutzrichtlinien",
+  "REGISTER_REGISTER_BUTTON": "Account erstellen",
+  "REGISTER_LEGAL_BUTTON": "Ich habe den Text gelesen und verstanden",
+
+  "REGISTER_CHECK_WELCOME_MSG": "Account Überprüfung",
+  "REGISTER_CHECK_BACKLINK": "Klicke hier, um zurückzukehren.",
+  "REGISTER_CHECK_HEADER": "Gratulation!",
+  "REGISTER_CHECK_MSG": "<p>Willkommen bei motus, deiner neuen Emotions-Tagebuch App.</p><p>Du hast es fast geschafft und kannst gleich loslegen. Wir haben dir eine Bestätigungsmail geschickt. Bitte klicke den Link in dieser E-Mail an, um deinen Account zu aktivieren.</p>",
+  "REGISTER_CHECK_NO_MAIL_HEADER": "Keine E-Mail erhalten?",
+  "REGISTER_CHECK_NO_MAIL_MSG": "<p>Bitte überprüfe den Spam Ordner deines E-Mail Kontos.</p><p>Findest du die E-Mail dort auch nicht, wende dich bitte per <a href=\"mailto:sta1701d@googlemail.com?subject=Probleme mit Accountaktivierung\">Mail</a> an uns.</p>",
+
+  "ACTIVATION_WELCOME_MSG": "Account Aktivierung",
+  "ACTIVATION_HEADER": "Gratulation, du hast es geschafft!",
+  "ACTIVATION_MSG": "<p>Dein Account wurde erfolgreich freigeschaltet.</p><p>Du kannst motus nun vollständig nutzen.</p><p>Viel Spaß!</p>",
+  "ACTIVATION_LINK": "Klicke hier, um zu starten.",
+
+  "INDEX_WELCOME_MSG": "Deine Startseite",
+
+  "PROFILE_WELCOME_MSG": "Dein Profil"
+
+}

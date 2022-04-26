@@ -5,25 +5,21 @@
 <main class="container-fluid form-signin p0 m0">
   <div class="row">
 
-    <h1 class="display-6 text-center" style="font-size: 18px;"><i class="fa-solid fa-clipboard-user brand-color"></i> ACCOUNT AKTIVIERUNG</h1>
+    <h1 class="display-6 text-center f-size-18 text-uppercase"><i class="fa-solid fa-clipboard-user brand-color"></i> {{ lang.ACTIVATION_WELCOME_MSG }}</h1>
     <hr class="mt-2 mb-4"/>
 
     {% if alerts %}
     <div class="alert alert-danger" role="alert">
-      <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> Huch, da stimmt etwas nicht:</h6>
+      <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> {{ lang.ERROR_STANDARD }}:</h6>
       {% for a in alerts %}
       <p>{{ a | safe }}</p>
       {% endfor %}
     </div>
     {% else %}
     <div class="alert alert-success" role="alert">
-      <h6 class="alert-heading mb-3">Gratulation! <i class="fa-solid fa-face-smile"></i></h6>
-      <p>Dein Account wurde erfolgreich freigeschaltet. </p>
-      <p>
-        Du kannst motus nun vollständig nutzen.
-      </p>
-      <p>Viel Spaß!</p>
-      <p><a href="{% url 'index' %}">Klicke hier um zu starten.</a></p>
+      <h6 class="alert-heading mb-3">{{ lang.ACTIVATION_HEADER }} <i class="fa-solid fa-face-smile"></i></h6>
+      {{ lang.ACTIVATION_MSG | safe }}
+      <p><a href="{% url 'index' %}">{{ lang.ACTIVATION_LINK }}</a></p>
     </div>
     {% endif %}
 

@@ -5,76 +5,71 @@
 <main class="container-fluid form-signin p0 m0">
     <div class="row">
 
-        <h1 class="display-6 text-center" style="font-size: 18px;"><i class="fa-solid fa-clipboard-user brand-color"></i> BITTE ERSTELLE EINEN ACCOUNT</h1>
+        <h1 class="display-6 text-center f-size-18 text-uppercase"><i class="fa-solid fa-clipboard-user c-icon"></i> {{ lang.REGISTER_WELCOME_MSG }}</h1>
         <hr class="mt-2 mb-4"/>
         <form action="/app/register/" method="post">
             {% csrf_token %}
             <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="username" id="username" placeholder="JohnDoe123" autofocus
-                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib einen Benutzernamen ein')">
-                <label for="username">Benutzername</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="{{ lang.REGISTER_USERNAME}}"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_USERNAME_NOT_VALID_MSG }}')">
+                <label for="username">{{ lang.REGISTER_USERNAME }}</label>
             </div>
 
             <div class="form-floating mb-2">
-                <input type="email" class="form-control" name="email" id="email" placeholder="name@mail.de"
-                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib eine gültige E-Mail Adresse ein')">
-                <label for="email">E-Mail Adresse</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="name@mail.com"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_EMAIL_NOT_VALID_MSG }}')">
+                <label for="email">{{ lang.REGISTER_EMAIL }}</label>
             </div>
 
             <div class="form-floating mb-2">
-                <input type="password" class="form-control" name="password" id="password" placeholder="13324"
-                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib ein Passwort ein')">
-                <label for="password">Passwort</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="{{ lang.REGISTER_PASSWORD }}"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_PASSWORD_NOT_VALID_MSG }}')">
+                <label for="password">{{ lang.REGISTER_PASSWORD }}</label>
             </div>
 
             <div class="form-floating mb-2">
-                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" placeholder="Geburtsdatum"
-                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte wähle dein Geburtsdatum aus')">
-                <label for="dateOfBirth">Geburtsdatum</label>
+                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" placeholder="{{ lang.DATE_OF_BIRTH }}"
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_DATE_OF_BIRTH_NOT_VALID_MSG }}')">
+                <label for="dateOfBirth">{{ lang.DATE_OF_BIRTH }}</label>
             </div>
 
             <div class="input-group mb-2 w-100">
                 <div class="input-group-prepend w-40 bg-white">
-                    <label class="input-group-text bg-white" for="gender">Geschlecht</label>
+                    <label class="input-group-text bg-white" for="gender">{{ lang.REGISTER_GENDER }}</label>
                 </div>
-                <select class="custom-select w-60" name="gender" id="gender" required>
-                    <option value="">Bitte wähle...</option>
-                    <option value="männlich">männlich</option>
-                    <option value="weiblich">weiblich</option>
-                    <option value="divers">divers</option>
+                <select class="custom-select w-60" name="gender" id="gender"
+                        required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_GENDER_NOT_VALID_MSG }}')">
+                    <option value="">{{ lang.REGISTER_GENDER_SELECTOR }}</option>
+                    <option value="{{ lang.REGISTER_GENDER_MALE }}">{{ lang.REGISTER_GENDER_MALE }}</option>
+                    <option value="{{ lang.REGISTER_GENDER_FEMALE }}">{{ lang.REGISTER_GENDER_FEMALE }}</option>
+                    <option value="{{ lang.REGISTER_GENDER_NON_BINARY }}">{{ lang.REGISTER_GENDER_NON_BINARY }}</option>
+                    <option value="{{ lang.REGISTER_GENDER_NOT_AVAILABLE }}">{{ lang.REGISTER_GENDER_NOT_AVAILABLE }}</option>
                 </select>
             </div>
 
             <div class="form-check mb-2">
                 <input type="checkbox" class="form-check-input" value="" name="agree" id="agree"
-                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Um fortzufahren, musst du den Bedingungen zustimmen')">
+                       required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_LEGAL_NOT_VALID_MSG }}')">
                 <label class="form-check-label" for="agree">
-                    Ich stimme den <a href="#" onclick="showEULA()">Nutzungsbedingungen</a> und <a href="#" onclick="showUseOfData()">Datenschutzrichtlinien</a> zu.
+                    {{ lang.REGISTER_LEGAL | safe }}
                 </label>
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary motus-button" type="submit">Account erstellen</button>
+            <button class="w-100 btn btn-lg btn-primary motus-button" type="submit">{{ lang.REGISTER_REGISTER_BUTTON }}</button>
         </form>
 
         <div class="modal fade" id="eulaModal" tabindex="-1" aria-labelledby="eulaLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="eulaLabel"><i class="fa-solid fa-file-contract"></i>  Nutzungsbedingungen</h5>
+                        <h5 class="modal-title" id="eulaLabel"><i class="fa-solid fa-file-contract"></i> {{ lang.REGISTER_EULA }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-                        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-                        <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-                        <p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
-                        <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
-                        <p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</p>
-                        <p>Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                        {% lorem 3 p %}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">{{ lang.REGISTER_LEGAL_BUTTON }}</button>
                     </div>
                 </div>
             </div>
@@ -84,21 +79,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="useOfDataLabel"><i class="fa-solid fa-file-contract"></i> Datenschutzrichtlinien</h5>
+                        <h5 class="modal-title" id="useOfDataLabel"><i class="fa-solid fa-file-contract"></i> {{ lang.REGISTER_USE_OF_DATA }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-                        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-                        <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-                        <p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
-                        <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
-                        <p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</p>
-                        <p>Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                        {% lorem 3 p %}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">{{ lang.REGISTER_LEGAL_BUTTON }}</button>
                     </div>
                 </div>
             </div>

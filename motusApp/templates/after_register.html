@@ -5,30 +5,23 @@
 <main class="container-fluid form-signin p0 m0">
   <div class="row">
 
-    <h1 class="display-6 text-center" style="font-size: 18px;"><i class="fa-solid fa-clipboard-user brand-color"></i> ACCOUNT ÜBERPRÜFUNG</h1>
+    <h1 class="display-6 text-center f-size-18 text-uppercase"><i class="fa-solid fa-clipboard-user brand-color"></i> {{ lang.REGISTER_CHECK_WELCOME_MSG }}</h1>
     <hr class="mt-2 mb-4"/>
 
     {% if alerts %}
       <div class="alert alert-danger" role="alert">
-        <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> Huch, da stimmt etwas nicht:</h6>
+        <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> {{ lang.ERROR_STANDARD }}:</h6>
         {% for a in alerts %}
         <p>{{ a | safe }}</p>
         {% endfor %}
-        <p class="mt-2"><a href="#" onclick="history.go(-1)">Hier klicken, um zurückzukehren.</a></p>
+        <p class="mt-2"><a href="#" onclick="history.go(-1)">{{ lang.REGISTER_CHECK_BACKLINK }}</a></p>
       </div>
     {% else %}
       <div class="alert alert-success" role="alert">
-        <h6 class="alert-heading mb-3">Gratulation! <i class="fa-solid fa-face-smile"></i></h6>
-        <p>Herzlich Willkommen bei motus, deiner neuen Mood Tracking App.</p>
-        <p>
-          Du hast es fast geschafft und kannst gleich loslegen. Wir haben dir eine Bestätigungsmail geschickt.
-          Bitte klicke den Link in dieser E-Mail an, um deinen Account zu aktivieren.
-        </p>
-        <h6 class="alert-heading mb-3">Keine E-Mail erhalten?</h6>
-        <p>Bitte überprüfe den Spam Ordner deines E-Mail Kontos.</p>
-        <p>
-          Findest du die E-Mail dort auch nicht, wende dich bitte per <a href="mailto:sta1701d@googlemail.com?subject=Probleme mit Accountaktivierung">Mail</a> an uns.
-        </p>
+        <h6 class="alert-heading mb-3">{{ lang.REGISTER_CHECK_HEADER }} <i class="fa-solid fa-face-smile"></i></h6>
+        {{ lang.REGISTER_CHECK_MSG | safe}}
+        <h6 class="alert-heading mb-3">{{ lang.REGISTER_CHECK_NO_MAIL_HEADER }}</h6>
+        {{ lang.REGISTER_CHECK_NO_MAIL_MSG | safe }}
       </div>
     {% endif %}
 

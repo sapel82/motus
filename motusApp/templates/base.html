@@ -18,28 +18,28 @@
 
     <header class="container-fluid p0 m0">
       <div class="row">
-        <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
+        <nav class="navbar navbar-expand-md navbar-dark bg-light mb-4">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#"><h1 class="display-6"><strong></strong></h1></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand" href="#"><img style="width:60%; height:auto;" src="{% static 'media/pictures/motus_header.png' %}" /></a>
+            <button class="navbar-toggler c-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon c-white"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+              <ul class="navbar-nav mx-auto mt-3 mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link display-4" href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Startseite</a>
+                  <a class="nav-link display-4 c-white" href="{% url 'index' %}"><i class="fa-solid fa-house c-white"></i> {{ lang.MOTUS_NAV_MAIN_PAGE }}</a>
                 </li>
-                <hr class="mt-2 mb-3"/>
+                <hr class="mt-2 mb-3 c-white"/>
                 <li class="nav-item">
-                  <a class="nav-link display-4" href="{% url 'profile' %}"><i class="fa-solid fa-address-card"></i> Profil</a>
+                  <a class="nav-link display-4 c-white" href="{% url 'profile' %}"><i class="fa-solid fa-address-card c-white"></i> {{ lang.MOTUS_NAV_PROFILE }}</a>
                 </li>
-                <hr class="mt-2 mb-3"/>
+                <hr class="mt-2 mb-3 c-white"/>
                 <li class="nav-item">
-                  <a class="nav-link display-4" href="#"><i class="fa-solid fa-chart-bar"></i> Statistik</a>
+                  <a class="nav-link display-4 c-white" href="#"><i class="fa-solid fa-chart-bar c-white"></i> {{ lang.MOTUS_NAV_STATISTICS }}</a>
                 </li>
-                <hr class="mt-2 mb-3"/>
+                <hr class="mt-2 mb-3 c-white"/>
                 <li class="nav-item">
-                  <a class="nav-link display-4" href="#"><i class="fa-solid fa-circle-question"></i> Hilfe</a>
+                  <a class="nav-link display-4 c-white" href="#"><i class="fa-solid fa-circle-question c-white"></i> {{ lang.MOTUS_NAV_HELP }}</a>
                 </li>
               </ul>
             </div>
@@ -53,7 +53,7 @@
 
     <footer class="footer">
       <div class="container-fluid">
-        <span><i class="fa-solid fa-copyright"></i> motus, 2022</span>
+        <span><i class="fa-solid fa-copyright"></i> {{ lang.MOTUS_COPYRIGHT_SHORT }}</span>
       </div>
     </footer>
 

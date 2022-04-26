@@ -73,6 +73,7 @@ class User(AbstractBaseUser):
     date_of_birth = models.DateField(auto_now=False, blank=True, verbose_name='Geburtsdatum')
     gender = models.ForeignKey(Gender, on_delete=models.DO_NOTHING, verbose_name='Geschlecht')
     activation_code = models.IntegerField(unique=True, default=123456789, verbose_name='Aktivierungscode')
+    language = models.CharField(max_length=5, default='de_DE', verbose_name='Gewählte Sprache')
 
     is_active = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)  # staff

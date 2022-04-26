@@ -1,41 +1,46 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from datetime import datetime
 from smtplib import SMTPAuthenticationError
 from motusAPI.models import Gender, User
 from motusApp.helpers import GMail
+from motus.config import lang
+import json
+
+if lang == 'de_DE':
+    with open('motusApp/languages/de_DE.json') as file:
+        lang = json.load(file)
 
 
 @login_required
 def app_index(request):
+    """ Mainpage """
     if request.user.is_authenticated:
-        return render(request, 'index.html', {'user': request.user})
-    else:
-        return HttpResponse('user not found')
+        return render(request, 'index.html', {'user': request.user, 'lang': lang})
 
 
 @login_required
 def app_profile(request):
+    """ Profile Page """
     if request.user.is_authenticated:
-        return render(request, 'profile.html', {'user': request.user})
-    else:
-        return HttpResponse('user not found')
+        return render(request, 'profile.html', {'user': request.user, 'lang': lang})
 
 
 def app_activate_profile(request, activation_code: int):
+    """ Activation Page """
     alerts = []
     if User.objects.filter(activation_code=activation_code).exists():
         user = User.objects.get(activation_code=activation_code)
         user.is_active = True
         user.save()
     else:
-        alerts.append('Für diesen Aktivierungscode wurde kein Benutzer gefunden.')
-    return render(request, 'activation_done.html', {'alerts': alerts})
+        alerts.append(lang['ERROR_ACTIVATION_CODE_NOT_FOUND'])
+    return render(request, 'activation_done.html', {'alerts': alerts, 'lang': lang})
 
 
 def app_login(request):
+    """ Login Page """
     if request.method == 'POST':
         alerts = []
         username = request.POST['username']
@@ -48,29 +53,24 @@ def app_login(request):
             login(request, user)
             return redirect(next_url)
         else:
-            alerts.append(
-                '''
-                <p>Login fehlgeschlagen!</p>  
-                <p>Was kannst du tun?</p>
-                <p>1. Bitte überprüfe Benutzername und Passwort.</p>
-                <p>2. Vergewissere dich, dass du den Bestätigungslink in deiner Email angeklickt hast.</p>
-                '''
-            )
-            return render(request, 'login.html', {'next_url': next_url, 'alerts': alerts})
+            alerts.append(lang['ERROR_LOGIN_FAILED'])
+            return render(request, 'login.html', {'next_url': next_url, 'alerts': alerts, 'lang': lang})
     else:
         next_url = request.GET['next']
-        return render(request, 'login.html', {'next_url': next_url})
+        return render(request, 'login.html', {'next_url': next_url, 'lang': lang})
 
 
 def app_logout(request):
+    """ Logout """
     if request.user.is_authenticated:
         logout(request)
     else:
-        print('No User found for logout')
+        print(lang['ERROR_LOGOUT_FAILED'])
     return redirect(app_index)
 
 
 def app_register(request):
+    """ Registration Page """
     if request.method == 'POST':
 
         alerts = []
@@ -84,9 +84,9 @@ def app_register(request):
 
         if all([username, email, password, date_of_birth, gender]):
             if User.objects.filter(username=username).exists():
-                alerts.append('Der Benutzername ist schon vergeben, bitte wähle einen anderen.')
+                alerts.append(lang['ERROR_USERNAME_NOT_AVAILABLE'])
             if User.objects.filter(email=email).exists():
-                alerts.append('Die E-Mail Adresse ist schon vergeben, bitte wähle eine andere.')
+                alerts.append(lang['ERROR_EMAIL_NOT_AVAILABLE'])
             if len(alerts) == 0:
                 user = User.objects.create_user(
                     username=username,
@@ -99,19 +99,16 @@ def app_register(request):
                 if user:
                     try:
                         mail = GMail()
-                        subject = 'Willkommen bei motus - Bestätigungsmail'
-                        message = 'Hallo {username},\num deinen Account zu aktivieren, klicke bitte auf den folgenden' \
-                                  ' Link:\n\nhttp://78.47.48.92:8000/app/activate/{activation_code}/'.format(
-                                                                                username=user.username,
-                                                                                activation_code=user.activation_code)
-                        mail.send([email], subject, message)
+                        subject = lang['MAIL_REGISTER_SUBJECT']
+                        msg = lang['MAIL_REGISTER_MSG'].format(username=username, activation_code=user.activation_code)
+                        mail.send([email], subject, msg)
                     except SMTPAuthenticationError as e:
-                        alerts.append('Die Bestätigungsmail konnte nicht gesendet werden.')
+                        alerts.append(lang['ERROR_EMAIL_NOT_SEND'])
                 else:
-                    alerts.append('Der Benutzer konnte nicht erstellt werden.')
+                    alerts.append(lang['ERROR_USER_NOT_CREATED'])
         else:
-            alerts.append("Es fehlen wichtige Nutzerdaten.")
+            alerts.append(lang['ERROR_MISSING_USERDATA'])
 
-        return render(request, 'after_register.html', {'alerts': alerts, 'user': user})
+        return render(request, 'after_register.html', {'alerts': alerts, 'user': user, 'lang': lang})
     else:
-        return render(request, 'register.html')
+        return render(request, 'register.html', {'lang': lang})

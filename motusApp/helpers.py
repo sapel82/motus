@@ -1,5 +1,7 @@
 import smtplib
 import ssl
+from email.header import Header
+from email.mime.text import MIMEText
 
 from motus.config import EMAIL_SENDER, EMAIL_PORT, EMAIL_SMTP_SERER_DOMAIN, EMAIL_PASSWORD
 

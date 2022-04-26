@@ -4,15 +4,14 @@
 
 <main class="container-fluid form-signin p0 m0">
   <div class="row">
-
-    <img class="mb-4 mx-auto" style="width:80%; height: auto;" src="{% static 'media/pictures/motus_logo2.png' %}" alt="" />
-    <h1 class="display-6 text-center mb-4" style="font-size: 22px;">WILLKOMMEN BEI MOTUS! <i class="fa-solid fa-heart brand-color"></i></h1>
-    <h2 class="display-6 text-center" style="font-size: 18px;">BITTE LOGGE DICH EIN.</h2>
+    <img class="mb-4 mx-auto motus-logo" src="{% static 'media/pictures/motus.png' %}" alt="motus" />
+    <h1 class="display-6 text-center mb-4 f-size-22 text-uppercase">{{ lang.LOGIN_WELCOME_MSG }} <i class="fa-regular fa-heart brand-color"></i></h1>
+    <h2 class="display-6 text-center f-size-18 text-uppercase">{{ lang.LOGIN_PLS_LOGIN }}</h2>
     <hr class="mt-2 mb-4"/>
 
     {% if alerts %}
     <div class="alert alert-danger" role="alert">
-      <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> Huch, da stimmt etwas nicht:</h6>
+      <h6 class="alert-heading mb-3"><i class="fa-solid fa-circle-exclamation"></i> {{ lang.ERROR_STANDARD }}:</h6>
       {% for a in alerts %}
       {{ a | safe }}
       {% endfor %}
@@ -23,18 +22,18 @@
       {% csrf_token %}
       <input type="hidden" name="next_url" value="{{ next_url }}" />
       <div class="form-floating mb-2">
-        <input class="form-control" name="username" id="floatingInput" placeholder="JohnDoe123" autofocus
-               required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib deinen Benutzernamen ein')">
-        <label for="floatingInput">Benutzername</label>
+        <input class="form-control" name="username" id="floatingInput" placeholder="{{ lang.LOGIN_USERNAME }}"
+               required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.LOGIN_USERNAME_NOT_VALID_MSG }}')">
+        <label for="floatingInput">{{ lang.LOGIN_USERNAME }}</label>
       </div>
       <div class="form-floating">
-        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Passwort"
-               required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Bitte gib dein Passwort ein')">
-        <label for="floatingPassword">Passwort</label>
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="{{ lang.LOGIN_PASSWORD }}"
+               required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.LOGIN_PASSWORD_NOT_VALID_MSG }}')">
+        <label for="floatingPassword">{{ lang.LOGIN_PASSWORD }}</label>
       </div>
 
-      <p>Noch kein Konto? Hier <a href="{% url 'register' %}">registrieren</a>.</p>
-      <button class="w-100 btn btn-lg btn-primary motus-button" type="submit">Einloggen</button>
+      <p><a href="{% url 'register' %}">{{ lang.LOGIN_NO_ACCOUNT_MSG }}</a></p>
+      <button class="w-100 btn btn-lg btn-primary motus-button" type="submit">{{ lang.LOGIN_LOGIN_BUTTON }}</button>
     </form>
   </div>
 </main>
