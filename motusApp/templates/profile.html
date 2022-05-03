@@ -3,12 +3,65 @@
 {% block content %}
 
 <main class="container-fluid p0 m0">
-  <div class="row w-75 mx-auto">
 
-    <h1 class="display-6 text-center f-size-18 text-uppercase"><i class="fa-solid fa-address-card c-icon"></i> {{ lang.PROFILE_WELCOME_MSG }}</h1>
-    <hr class="mt-2 mb-4"/>
+  <div class="w-85 mx-auto">
 
-    Hallo {{ user.username }} <a href="{% url 'logout' %}">Ausloggen</a>
+    <h3 class="mb-3">
+      {{ user.username }}
+      <small class="text-muted"> | {{ lang.PROFILE_WELCOME_MSG }}</small>
+    </h3>
+
+    <form action="profile/update/" method="POST">
+    {% csrf_token %}
+
+      <div class="form-group mb-3">
+        <label class="col-lg-3 control-label">{{ lang.REGISTER_USERNAME}}:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="{{ user.username }}" readonly="readonly"
+                 required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_USERNAME_NOT_VALID_MSG }}')">
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="col-lg-3 control-label">{{ lang.REGISTER_EMAIL}}:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="{{ user.email }}" readonly="readonly"
+                 required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_EMAIL_NOT_VALID_MSG }}')">
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="col-lg-3 control-label">{{ lang.REGISTER_PASSWORD}}:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="******" readonly="readonly"
+                 required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_PASSWORD_NOT_VALID_MSG }}')">
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="col-lg-3 control-label">{{ lang.REGISTER_DATE_OF_BIRTH}}:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="date" value="{{ user.date_of_birth | date:'Y-m-d' }}" readonly="readonly"
+                 required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_DATE_OF_BIRTH_NOT_VALID_MSG }}')">
+        </div>
+      </div>
+
+      <div class="input-group mb-2 w-100">
+        <div class="input-group-prepend w-40 bg-white">
+          <label class="input-group-text bg-white" for="gender">{{ lang.REGISTER_GENDER }}</label>
+        </div>
+        <select class="custom-select w-60" name="gender" id="gender" readonly="readonly"
+                required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_GENDER_NOT_VALID_MSG }}')">
+          <option disabled value="">{{ lang.REGISTER_GENDER_SELECTOR }}</option>
+          <option {% if user.gender.title == lang.REGISTER_GENDER_MALE %} selected {% endif %} disabled value="{{ lang.REGISTER_GENDER_MALE }}">{{ lang.REGISTER_GENDER_MALE }}</option>
+          <option {% if user.gender.title == lang.REGISTER_GENDER_FEMALE %} selected {% endif %} disabled value="{{ lang.REGISTER_GENDER_FEMALE }}">{{ lang.REGISTER_GENDER_FEMALE }}</option>
+          <option {% if user.gender.title == lang.REGISTER_GENDER_NON_BINARY %} selected {% endif %} disabled value="{{ lang.REGISTER_GENDER_NON_BINARY }}">{{ lang.REGISTER_GENDER_NON_BINARY }}</option>
+          <option {% if user.gender.title == lang.REGISTER_GENDER_NOT_AVAILABLE %} selected {% endif %} disabled value="{{ lang.REGISTER_GENDER_NOT_AVAILABLE }}">{{ lang.REGISTER_GENDER_NOT_AVAILABLE }}</option>
+        </select>
+      </div>
+
+    </form>
   </div>
 </main>
+
 {% endblock %}

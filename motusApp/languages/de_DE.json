@@ -4,6 +4,7 @@
   "MOTUS_NAV_PROFILE": "Profil",
   "MOTUS_NAV_STATISTICS": "Statistik",
   "MOTUS_NAV_HELP": "Hilfe",
+  "MOTUS_NAV_LOGOUT": "Ausloggen",
 
   "MAIL_REGISTER_SUBJECT": "Willkommen bei motus - Registrierungsmail",
   "MAIL_REGISTER_MSG": "Hallo {username},\num deinen Account zu aktivieren, klickte bitte auf den folgenden Link.\n\nhttp://78.47.48.92:8000/app/activate/{activation_code}/",
@@ -21,6 +22,8 @@
 
   "ERROR_ACTIVATION_CODE_NOT_FOUND": "Dieser Aktivierungscode ist keinem Benutzer zugeordnet.",
 
+  "BUTTON_OK": "OK",
+
   "LOGIN_WELCOME_MSG": "Willkommen bei motus!",
   "LOGIN_PLS_LOGIN": "Bitte logge dich ein.",
   "LOGIN_USERNAME": "Benutzername",
@@ -30,9 +33,9 @@
   "LOGIN_NO_ACCOUNT_MSG": "Noch kein Konto? Hier registrieren.",
   "LOGIN_LOGIN_BUTTON": "Einloggen",
 
-  "REGISTER_WELCOME_MSG": "Bitte erstelle einen Account",
+  "REGISTER_WELCOME_MSG": "Account erstellen",
   "REGISTER_USERNAME": "Benutzername",
-  "REGISTER_USERNAME_NOT_VALD_MSG": "Bitte gib einen Benutzernamen ein",
+  "REGISTER_USERNAME_NOT_VALID_MSG": "Bitte gib einen Benutzernamen ein",
   "REGISTER_EMAIL": "E-Mail Adresse",
   "REGISTER_EMAIL_NOT_VALID_MSG": "Bitte gib eine gültige E-Mail Adresse ein",
   "REGISTER_PASSWORD": "Passwort",
@@ -65,7 +68,19 @@
   "ACTIVATION_MSG": "<p>Dein Account wurde erfolgreich freigeschaltet.</p><p>Du kannst motus nun vollständig nutzen.</p><p>Viel Spaß!</p>",
   "ACTIVATION_LINK": "Klicke hier, um zu starten.",
 
-  "INDEX_WELCOME_MSG": "Deine Startseite",
+  "SET_PROFILE_WELCOME_MSG": "Profilvervollständigung",
+  "SET_PROFILE_MOTUS_WELCOME_MSG": "Herzlich Willkommen",
+  "SET_PROFILE_MOTUS_TITLE": "motus ist dein neues Emotions-Tagebuch.",
+  "SET_PROFILE_MOTUS_FIRST_PARAGRAPH": "Mit motus dokumentierst du deine Aktivitäten und Gefühle um deine mentale Gesundheit zu überwachen.",
+  "SET_PROFILE_MOTUS_SECOND_PARAGRAPH": "Dieses Tagebuch hilft dir dabei einen Überblick über deine Emotionswelt zu schaffen. Wöchentlich wird motus dir eine Zusammenfassung zeigen und dir Feedback geben. Dieses kann helfen deinen Gemütszustand zu verbessern. Motus warnt dich aber auch, wenn es bemerkt, dass du dich über einen längeren Zeitraum mit negativen Emotionen beschäftigt und gibt dir Informationen und Tipps zur Selbsthilfe.",
+  "SET_PROFILE_MOTUS_THIRD_PARAGRAPH": "Um loslegen zu können, müssen wir ein wenig über dich erfahren! Führe dazu bitte die folgenden Schritte aus.",
+  "SET_PROFILE_START_BUTTON": "Starten",
+
+  "SET_RESSOURCES_WELCOME_MSG": "Ressourcen wählen",
+  "SET_RESSOURCES_INFO": "Bitte wähle aus der unten stehenden Liste mindestens 5 Dinge, aus denen du Kraft schöpfst.",
+  "SET_RESSOURCES_RESSOURCES": "Ressourcen",
+  "SET_RESSOURCES_CONTINUE": "Weiter",
+  "SET_RESSOURCES_NOT_ENOUGH_RESSOURCES": "Bitte wähle mindestens 5 Ressourcen",
 
   "PROFILE_WELCOME_MSG": "Dein Profil"
 

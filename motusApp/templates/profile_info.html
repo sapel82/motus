@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="container-fluid p0 m0">
+  <div class="w-95 mx-auto">
+
+    <h3 class="mb-3">
+      motus
+      <small class="text-muted"> | {{ lang.SET_PROFILE_WELCOME_MSG }}</small>
+    </h3>
+
+    <div class="card mb-4 shadow">
+      <h6 class="card-header">
+        {{ lang.SET_PROFILE_MOTUS_WELCOME_MSG }} {{ user.username }}!
+      </h6>
+      <div class="card-body">
+        <h6 class="card-title">{{ lang.SET_PROFILE_MOTUS_TITLE }}</h6>
+        <p class="justify">
+          {{ lang.SET_PROFILE_MOTUS_FIRST_PARAGRAPH }}
+        </p>
+        <p class="justify">
+          {{ lang.SET_PROFILE_MOTUS_SECOND_PARAGRAPH }}
+        </p>
+        <p class="justify">
+          {{ lang.SET_PROFILE_MOTUS_THIRD_PARAGRAPH }}
+        </p>
+        <form action="/app/fill_profile/" method="POST">
+          {% csrf_token %}
+          <input type="hidden" value="1" name="new_profile_level" />
+          <button class="btn btn-primary btn-lg motus-button shadow">{{ lang.SET_PROFILE_START_BUTTON }}</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

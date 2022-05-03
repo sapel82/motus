@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from datetime import datetime
 from smtplib import SMTPAuthenticationError
-from motusAPI.models import Gender, User
+from motusAPI.models import Gender, User, Ressource
 from motusApp.helpers import GMail
 from motus.config import lang
 import json
@@ -13,11 +13,44 @@ if lang == 'de_DE':
         lang = json.load(file)
 
 
+def app_test(request):
+    return HttpResponse('test')
+
+
 @login_required
 def app_index(request):
     """ Mainpage """
     if request.user.is_authenticated:
-        return render(request, 'index.html', {'user': request.user, 'lang': lang})
+        if request.user.profile_level == 3:
+            return render(request, 'index.html', {'user': request.user, 'lang': lang})
+        else:
+            return redirect(app_fill_profile)
+
+
+@login_required
+def app_fill_profile(request):
+    """ Check Profile Status """
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            new_profile_level = request.POST['new_profile_level']
+            request.user.profile_level = new_profile_level
+            request.user.save()
+            return redirect(app_index)
+        else:
+            if request.user.profile_level == 0:
+                return render(request, 'profile_info.html', {'user': request.user, 'lang': lang})
+            elif request.user.profile_level == 1:
+                ressources = Ressource.objects.all()
+                return render(
+                    request, 'profile_set_ressources.html', {
+                        'user': request.user,
+                        'lang': lang,
+                        'user_ressources': request.user.ressources.all(),
+                        'ressources': ressources
+                    }
+                )
+            elif request.user.profile_level == 2:
+                return HttpResponse('Level 2')
 
 
 @login_required
@@ -38,6 +71,19 @@ def app_activate_profile(request, activation_code: int):
         alerts.append(lang['ERROR_ACTIVATION_CODE_NOT_FOUND'])
     return render(request, 'activation_done.html', {'alerts': alerts, 'lang': lang})
 
+
+def app_set_ressource(request, id: int):
+    """ Activate/Deactivate a ressource for a user profile """
+    user =request.user
+    ressource = Ressource.objects.get(id=id)
+
+    if user.ressources.filter(id=id).exists():
+        user.ressources.remove(ressource)
+        return HttpResponse('false')
+    else:
+        user.ressources.add(ressource)
+        return HttpResponse('true')
+      
 
 def app_login(request):
     """ Login Page """

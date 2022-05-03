@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="container-fluid p0 m0">
+  <div class="w-95 mx-auto">
+
+    <h3 class="mb-3">
+      motus
+      <small class="text-muted"> | {{ lang.SET_RESSOURCES_WELCOME_MSG }}</small>
+    </h3>
+
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <p>{{ lang.SET_RESSOURCES_INFO }}</p>
+      </div>
+    </div>
+
+    <div class="accordion mb-2 shadow" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button bg-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            {{ lang.SET_RESSOURCES_RESSOURCES }}
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body row mx-auto">
+
+            {% for r in ressources %}
+                {% if r in user_ressources %}
+                  {% firstof "1" as opacity %}
+                  {% firstof 'data-active="true"' as data_active %}
+                {% else %}
+                  {% firstof "0.3" as opacity %}
+                  {% firstof 'data-active="false"' as data_active %}
+                {% endif %}
+
+                <div class="moodfactor-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="ressource_{{ r.id }}" {{ data_active }}>
+                  <img src="{% static 'media/icons/' %}{{ r.icon }}" id="ressource_img_{{ r.id }}" alt="{{ r.title }}" style="width:100%;height: auto; max-width: 100px; opacity: {{ opacity }};"/>
+                  <div class="text-center"><small>{{ r.title }}</small></div>
+                </div>
+                  
+            {% endfor %}
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <form action="/app/test/" onsubmit="return countMoodFactors();">
+      <button class="btn btn-primary btn-lg motus-button mb-2" id="submitRessources" name="submitRessources">{{ lang.SET_RESSOURCES_CONTINUE }}</button>
+    </form>
+
+    <div class="modal fade" id="notEnoughMoodFactorsModal" tabindex="-1" aria-labelledby="eulaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-body">
+                  {{ lang.SET_RESSOURCES_NOT_ENOUGH_RESSOURCES }}
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">{{ lang.BUTTON_OK }}</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from motusApp.views import app_login, app_logout, app_register, app_index, app_profile, app_activate_profile
+from motusApp.views import *
 
 
 urlpatterns = [
@@ -29,8 +29,23 @@ urlpatterns = [
         name='profile'
     ),
     path(
+        'fill_profile/',
+        app_fill_profile,
+        name='fill_profile'
+    ),
+    path(
         'activate/<activation_code>/',
         app_activate_profile,
         name='activate_profile'
     ),
+    path(
+        'set/ressource/<id>/',
+        app_set_ressource,
+        name='set_ressource'
+    ),
+    path(
+        'test/',
+        app_test,
+        name='test'
+    )
 ]

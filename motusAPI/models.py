@@ -26,6 +26,45 @@ class Gender(models.Model):
         return {'id': self.id, 'title': self.title, 'icon': self.icon}
 
 
+class MoodFactor(models.Model):
+    """ Abstract class for mood factors ressources/stressors """
+    id = int
+    objects = None
+
+    title = models.CharField(max_length=30)
+    icon = models.CharField(max_length=30)
+    description = models.CharField(max_length=255)
+    message = models.CharField(max_length=255)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self) -> str:
+        return 'Ressource: {id} - {title}'.format(id=self.id, title=self.title)
+
+    def as_dict(self) -> dict:
+        return {'id': self.id, 'title': self.title, 'icon': self.icon}
+
+
+class Ressource(MoodFactor):
+    """ Ressource object for user profile and records """
+    class Meta(MoodFactor.Meta):
+        managed = True
+        ordering = ['title']
+        db_table = 'ressource'
+        verbose_name = 'Ressource'
+        verbose_name_plural = 'Ressourcen'
+
+
+class Stessor(MoodFactor):
+    """ Stressor object for user profile and records """
+    class Meta(MoodFactor.Meta):
+        managed = True
+        db_table = 'stressor'
+        verbose_name = 'Stressor'
+        verbose_name_plural = 'Stressoren'
+
+
 class UserManager(BaseUserManager):
     """ User Manager """
     def create_user(self, username: str, email: str, date_of_birth: date, gender: Gender, password: str):
@@ -74,6 +113,8 @@ class User(AbstractBaseUser):
     gender = models.ForeignKey(Gender, on_delete=models.DO_NOTHING, verbose_name='Geschlecht')
     activation_code = models.IntegerField(unique=True, default=123456789, verbose_name='Aktivierungscode')
     language = models.CharField(max_length=5, default='de_DE', verbose_name='Gewählte Sprache')
+    profile_level = models.IntegerField(default=0, verbose_name='Profilkomplettierung')
+    ressources = models.ManyToManyField(Ressource)
 
     is_active = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)  # staff
