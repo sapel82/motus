@@ -1,5 +1,5 @@
 from datetime import date
-from motusAPI.models import User, Gender, Ressource
+from motusAPI.models import User, Gender, Ressource, Stressor
 
 
 def run():
@@ -34,3 +34,24 @@ def run():
     Ressource.objects.create(title='Schlafen', icon='sleeping.png')
     Ressource.objects.create(title='Sport', icon='sport.png')
     Ressource.objects.create(title='Videospiele', icon='videogames.png')
+    Ressource.objects.create(title='Partnerschaft', icon='love.png')
+
+    Stressor.objects.create(title='Grübeln', icon='ponder.png')
+    Stressor.objects.create(title='Stress', icon='stress.png')
+    Stressor.objects.create(title='Arbeit', icon='work.png')
+    Stressor.objects.create(title='Nachrichten', icon='news.png')    
+    Stressor.objects.create(title='Politik', icon='politics.png')    
+    Stressor.objects.create(title='Konzentration', icon='concentration.png')    
+    Stressor.objects.create(title='Sorgen', icon='worries.png')
+    Stressor.objects.create(title='Liebeskummer', icon='heartache.png')
+    Stressor.objects.create(title='Schmerzen', icon='pain.png')
+    Stressor.objects.create(title='Schlafmangel', icon='insomnia.png')
+    Stressor.objects.create(title='Erschöpfung', icon='exhaustion.png')
+    Stressor.objects.create(title='Alptraum', icon='nightmare.png')
+    Stressor.objects.create(title='Angst', icon='anxiety.png')
+
+
+
+
+
+

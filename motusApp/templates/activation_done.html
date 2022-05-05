@@ -2,11 +2,14 @@
 {% load static %}
 {% block content %}
 
-<main class="container-fluid form-signin p0 m0">
-  <div class="row">
+<main class="container-fluid p0 m0">
 
-    <h1 class="display-6 text-center f-size-18 text-uppercase"><i class="fa-solid fa-clipboard-user brand-color"></i> {{ lang.ACTIVATION_WELCOME_MSG }}</h1>
-    <hr class="mt-2 mb-4"/>
+  <div class="content mx-auto">
+
+    <h3 class="mb-3">
+      motus
+      <small class="text-muted"> | {{ lang.ACTIVATION_WELCOME_MSG }}</small>
+    </h3>
 
     {% if alerts %}
     <div class="alert alert-danger" role="alert">

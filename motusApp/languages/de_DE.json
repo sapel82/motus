@@ -82,6 +82,9 @@
   "SET_RESSOURCES_CONTINUE": "Weiter",
   "SET_RESSOURCES_NOT_ENOUGH_RESSOURCES": "Bitte wähle mindestens 5 Ressourcen",
 
-  "PROFILE_WELCOME_MSG": "Dein Profil"
+  "PROFILE_WELCOME_MSG": "Dein Profil",
+
+  "INDEX_WELCOME_MSG": "Deine Startseite",
+  "INDEX_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen"
 
 }

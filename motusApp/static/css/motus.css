@@ -1,4 +1,14 @@
-/* Motus App CSS */
+/********** Motus App CSS **********************************************************************/
+/***********************************************************************************************/
+/*                                                                                             */
+/* Autor:   Stefan Apel                                                                        */
+/* Version: v.050520221150                                                                     */
+/*                                                                                             */
+/***********************************************************************************************/
+
+
+/* Variablen */
+/***********************************************************************************************/
 :root {
     --brand-color: #348a40;
     --brand-background-color: #f2fff7;
@@ -12,9 +22,25 @@
     --white-color: #EEEEEE;
 
     --border-color: #AAAAAA;
+    --border-color-brighter: #DDDDDD;
+}
+/***********************************************************************************************/
+
+
+/* Breakpoints */
+/***********************************************************************************************/
+@media (min-width: 320px) {
+
+}
+
+@media (min-width: 480px) {
+    .content {
+        width: 95%;
+    }
 }
 
 @media (min-width: 768px) {
+    
     .display-6 {font-size:1.3rem !important;}
 
     .navbar-collapse {
@@ -23,41 +49,27 @@
     }
 
     .moodfactor-container {
-        padding:5px; 
-        border:1px solid #EEEEEE; 
-        width: 10%; 
-        max-width: 100px; 
-        height:auto;
+        width: 15% !important;
+    }
+
+    .content {
+        width: 70%;
     }
 }
 
-html {
-    position: relative;
-    min-height: 100%;
+@media (win-width: 992px) {
+
+
 }
 
-body {
-    margin-bottom: 60px;
-    background-color: var(--brand-background-color);
-}
+@media (min-width: 1200px) {
 
-a {
-    color: var(--brand-link-color);
 }
+/***********************************************************************************************/
 
-a:hover {
-    color: var(--brand-link-hover-color);
-}
 
-a.dropdown-item:hover {
-    background-color: #2e7d39;
-}
-
-.dropdown-menu {
-    background-color: #348a40;
-    border: 0px; margin-left:30px;
-}
-
+/* Formatting */
+/***********************************************************************************************/
 .w-33 { width: 33%; }
 .w-40 { width: 40%; }
 .w-60 { width: 60%; }
@@ -78,9 +90,51 @@ a.dropdown-item:hover {
 .justify { text-align: justify; }
 .font-weight-light { font-weight: lighter; }
 
-
 .brand-color { color: var(--brand-color); }
 .brand-background-color { background-color: var(--brand-background-color); }
+/***********************************************************************************************/
+
+
+/* Standard */
+/***********************************************************************************************/
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: var(--brand-background-color);
+}
+
+a {
+    color: var(--brand-link-color);
+}
+
+a:hover {
+    color: var(--brand-link-hover-color);
+}
+/***********************************************************************************************/
+
+
+/* Navbar */
+/***********************************************************************************************/
+.navbar-expand-md {
+    background-color: var(--brand-color) !important;
+}
+
+.navbar-brand {
+    color: var(--white-color) !important;
+}
+
+a.dropdown-item:hover {
+    background-color: #2e7d39;
+}
+
+.dropdown-menu {
+    background-color: #348a40;
+    border: 0px; margin-left:30px;
+}
 
 .motus-logo {
     width: 60%;
@@ -91,66 +145,11 @@ a.dropdown-item:hover {
     width: 60%;
     height: auto;
 }
-
-/* Navbar */
-.navbar-expand-md {
-    background-color: var(--brand-color) !important;
-}
-.navbar-brand {
-    color: var(--white-color) !important;
-}
+/***********************************************************************************************/
 
 
-
-/* Login Form */
-.form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-}
-
-.form-signin .checkbox {
-    font-weight: 400;
-}
-
-.form-signin .form-floating:focus-within {
-    z-index: 2;
-}
-
-.form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-/* Footer */
-.footer {
-    color: var(--white-color);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-    background-color: var(--brand-color);
-    text-align: center;
-}
-
-.motus-button {
-    background-color: var(--brand-button-color);
-    border-color: var(--border-color);
-}
-.motus-button:hover {
-    background-color: var(--brand-button-hover-color);
-    border-color: var(--border-color);
-}
-
+/* Content */
+/***********************************************************************************************/
 .modal-header {
     color: var(--white-color);
     background-color: var(--brand-color);
@@ -160,6 +159,7 @@ a.dropdown-item:hover {
 .card {
     background-color: var(--brand-content-box-background-color);
 }
+
 .card-header {
     background-color: var(--brand-color);
     color: var(--white-color);
@@ -171,7 +171,8 @@ a.dropdown-item:hover {
 
 .accordion-button {
     color: var(--white-color);
-    background-color: var(--brand-color);}
+    background-color: var(--brand-color);
+}
 
 .accordion-button:not(.collapsed) {
     color: var(--white-color);
@@ -188,12 +189,65 @@ a.dropdown-item:hover {
 
 .moodfactor-container {
     padding:5px; 
-    border:1px solid #EEEEEE; 
+    border:1px solid var(--border-color-brighter); 
     width: 32%; 
     max-width: 32%; 
     height:auto;
+    min-width: 100px;
 }
 
+.moodfactor-container-profile {
+    padding:5px; 
+    border:1px solid var(--border-color-brighter); 
+    width: 32%; 
+    max-width: 32%; 
+    height:auto;
+    min-width: 100px;
+}
+
+.moodfactor-img {
+    width:100%;
+    height: auto; 
+    max-width: 100px; 
+}
+/***********************************************************************************************/
+
+
+/* Footer */
+/***********************************************************************************************/
+.footer {
+    color: var(--white-color);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: var(--brand-color);
+    text-align: center;
+}
+/***********************************************************************************************/
+
+
+/* UI Elements */
+/***********************************************************************************************/
+.form-signin {
+    max-width: 330px;
+}
+
+.motus-button {
+    background-color: var(--brand-button-color);
+    border-color: var(--border-color);
+}
+
+.motus-button:hover {
+    background-color: var(--brand-button-hover-color);
+    border-color: var(--border-color);
+}
+/***********************************************************************************************/
+
+
+/* Effects */
+/***********************************************************************************************/
 .shake {
     animation-name: shake;
     animation-duration: 0.5s;
@@ -210,5 +264,6 @@ a.dropdown-item:hover {
         transform: translateX(3px);
     }
 }
+/***********************************************************************************************/
 
 

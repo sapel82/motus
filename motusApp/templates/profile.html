@@ -4,19 +4,19 @@
 
 <main class="container-fluid p0 m0">
 
-  <div class="w-85 mx-auto">
+  <div class="content mx-auto">
 
     <h3 class="mb-3">
       {{ user.username }}
       <small class="text-muted"> | {{ lang.PROFILE_WELCOME_MSG }}</small>
     </h3>
 
-    <form action="profile/update/" method="POST">
+    <form class="mb-4 w-100" action="profile/update/" method="POST">
     {% csrf_token %}
 
       <div class="form-group mb-3">
         <label class="col-lg-3 control-label">{{ lang.REGISTER_USERNAME}}:</label>
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <input class="form-control" type="text" value="{{ user.username }}" readonly="readonly"
                  required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_USERNAME_NOT_VALID_MSG }}')">
         </div>
@@ -24,7 +24,7 @@
 
       <div class="form-group mb-3">
         <label class="col-lg-3 control-label">{{ lang.REGISTER_EMAIL}}:</label>
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <input class="form-control" type="text" value="{{ user.email }}" readonly="readonly"
                  required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_EMAIL_NOT_VALID_MSG }}')">
         </div>
@@ -32,7 +32,7 @@
 
       <div class="form-group mb-3">
         <label class="col-lg-3 control-label">{{ lang.REGISTER_PASSWORD}}:</label>
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <input class="form-control" type="text" value="******" readonly="readonly"
                  required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_PASSWORD_NOT_VALID_MSG }}')">
         </div>
@@ -40,7 +40,7 @@
 
       <div class="form-group mb-3">
         <label class="col-lg-3 control-label">{{ lang.REGISTER_DATE_OF_BIRTH}}:</label>
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <input class="form-control" type="date" value="{{ user.date_of_birth | date:'Y-m-d' }}" readonly="readonly"
                  required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_DATE_OF_BIRTH_NOT_VALID_MSG }}')">
         </div>
@@ -61,6 +61,35 @@
       </div>
 
     </form>
+
+    <div class="card mb-4 shadow">
+      <h6 class="card-header">
+        Ressourcen
+      </h6>
+      <div class="card-body row mx-auto">
+
+        {% if not user_ressources %}
+          Noch nicht ausgewählt
+        {% endif %}
+
+        {% for r in ressources %}
+          {% if r in user_ressources %}
+            <div class="moodfactor-container-profile shadow-sm rounded mb-2 mx-auto justify-content-center" id="profile_ressource_{{ r.id }}">
+              <img class="row mx-auto moodfactor-img" src="{% static 'media/icons/' %}{{ r.icon }}" id="profile_ressource_img_{{ r.id }}" alt="{{ r.title }}"/>
+              <div class="text-center"><small>{{ r.title }}</small></div>
+            </div>
+          {% endif %}
+          
+        {% endfor %}
+
+      </div>
+    </div>
+    <br />
+
+
+
+
+
   </div>
 </main>
 

@@ -2,8 +2,8 @@
 {% load static %}
 {% block content %}
 
-<main class="container-fluid form-signin p0 m0">
-    <div class="row">
+<main class="container-fluid p0 m0">
+    <div class="content mx-auto">
 
         <h3 class="mb-3">
             motus
@@ -31,9 +31,9 @@
             </div>
 
             <div class="form-floating mb-2">
-                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" placeholder="{{ lang.DATE_OF_BIRTH }}"
+                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" placeholder="{{ lang.REGISTER_DATE_OF_BIRTH }}"
                        required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('{{ lang.REGISTER_DATE_OF_BIRTH_NOT_VALID_MSG }}')">
-                <label for="dateOfBirth">{{ lang.DATE_OF_BIRTH }}</label>
+                <label for="dateOfBirth">{{ lang.REGISTER_DATE_OF_BIRTH }}</label>
             </div>
 
             <div class="input-group mb-2 w-100">

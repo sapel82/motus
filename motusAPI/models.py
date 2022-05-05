@@ -1,4 +1,5 @@
 from datetime import date
+from operator import length_hint, truediv
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
 import random
@@ -56,7 +57,7 @@ class Ressource(MoodFactor):
         verbose_name_plural = 'Ressourcen'
 
 
-class Stessor(MoodFactor):
+class Stressor(MoodFactor):
     """ Stressor object for user profile and records """
     class Meta(MoodFactor.Meta):
         managed = True
@@ -115,6 +116,7 @@ class User(AbstractBaseUser):
     language = models.CharField(max_length=5, default='de_DE', verbose_name='Gewählte Sprache')
     profile_level = models.IntegerField(default=0, verbose_name='Profilkomplettierung')
     ressources = models.ManyToManyField(Ressource)
+    stressors = models.ManyToManyField(Stressor)
 
     is_active = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)  # staff
@@ -156,3 +158,35 @@ class User(AbstractBaseUser):
             'age': self.age,
             'gender': self.gender
         }
+
+
+class RecordManager(models.Manager):
+    """ Record Manager """
+    def records_today(self):
+        pass
+
+
+class Record(models.Model):
+    """ Record object """
+
+    id = int
+    objects = None
+
+    timestamp = models.DateTimeField(verbose_name='Zeitpunkt der Aufzeichnung')
+    mood = models.IntegerField(verbose_name='Stimmung')
+    note = models.CharField(max_length=255, verbose_name='Notiz')
+
+    ressources = models.ManyToManyField(Ressource)
+    stressors = models.ManyToManyField(Stressor)
+
+    class Meta():
+        managed = True
+        db_table = 'record'
+        verbose_name = 'Aufzeichnung'
+        verbose_name_plural = 'Aufzeichnungen'
+
+    def __str__(self) -> str:
+        return ''
+
+    def as_dict(self) -> dict:
+        return {}

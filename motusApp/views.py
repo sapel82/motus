@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect, HttpResponse
 from datetime import datetime
 from smtplib import SMTPAuthenticationError
-from motusAPI.models import Gender, User, Ressource
+from motusAPI.models import *
 from motusApp.helpers import GMail
 from motus.config import lang
 import json
@@ -20,9 +20,25 @@ def app_test(request):
 @login_required
 def app_index(request):
     """ Mainpage """
-    if request.user.is_authenticated:
-        if request.user.profile_level == 3:
-            return render(request, 'index.html', {'user': request.user, 'lang': lang})
+    user = request.user
+    if user.is_authenticated:
+        if user.profile_level == 2:
+            records = Record.objects.all()
+            records_today = Record.objects.get
+
+            ts = datetime.now()
+            print(ts)
+
+
+            return render(
+                request, 
+                'index.html', 
+                {
+                    'user': user, 
+                    'lang': lang,
+                    'records': records,
+                }
+            )
         else:
             return redirect(app_fill_profile)
 
@@ -50,14 +66,23 @@ def app_fill_profile(request):
                     }
                 )
             elif request.user.profile_level == 2:
-                return HttpResponse('Level 2')
+                return redirect(app_index)
 
 
 @login_required
 def app_profile(request):
     """ Profile Page """
     if request.user.is_authenticated:
-        return render(request, 'profile.html', {'user': request.user, 'lang': lang})
+        ressources = Ressource.objects.all()
+        return render(
+            request, 
+            'profile.html',
+            {
+                'user': request.user, 
+                'lang': lang, 
+                'ressources': ressources,
+                'user_ressources': request.user.ressources.all()}
+        )
 
 
 def app_activate_profile(request, activation_code: int):

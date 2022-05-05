@@ -30,24 +30,6 @@ $(document).ready(function () {
         })
     })
 
-
-    // // Check if enough mood factors are selected
-    // $(document).on("click tap touchstart", "#submitRessources", function()
-    // {
-    //     ressourcesSelected = $(".moodfactor-container[data-active='true']").length;
-    //     if (ressourcesSelected >= 5) {
-    //         $("#submitRessources").submit(function(){
-    //             return true;
-    //         })
-    //     }
-    //     else {
-    //         alert("Es wurde nicht genügend Ressourcen ausgewählt");
-    //         $("#submitRessources").submit(function(){
-    //             return false;
-    //         })
-    //     }
-    // })
-
 });
 
 // Shows the EULA modal window

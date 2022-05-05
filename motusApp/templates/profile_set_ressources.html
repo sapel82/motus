@@ -3,7 +3,7 @@
 {% block content %}
 
 <main class="container-fluid p0 m0">
-  <div class="w-95 mx-auto">
+  <div class="content mx-auto">
 
     <h3 class="mb-3">
       motus
@@ -36,10 +36,9 @@
                 {% endif %}
 
                 <div class="moodfactor-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="ressource_{{ r.id }}" {{ data_active }}>
-                  <img src="{% static 'media/icons/' %}{{ r.icon }}" id="ressource_img_{{ r.id }}" alt="{{ r.title }}" style="width:100%;height: auto; max-width: 100px; opacity: {{ opacity }};"/>
+                  <img class="row mx-auto moodfactor-img" src="{% static 'media/icons/' %}{{ r.icon }}" id="ressource_img_{{ r.id }}" alt="{{ r.title }}" style="opacity: {{ opacity }};"/>
                   <div class="text-center"><small>{{ r.title }}</small></div>
                 </div>
-                  
             {% endfor %}
 
           </div>
@@ -48,7 +47,9 @@
       </div>
     </div>
 
-    <form action="/app/test/" onsubmit="return countMoodFactors();">
+    <form action="/app/fill_profile/" method="POST" onsubmit="return countMoodFactors();">
+      {% csrf_token %}
+      <input type="hidden" value="2" name="new_profile_level" />
       <button class="btn btn-primary btn-lg motus-button mb-2" id="submitRessources" name="submitRessources">{{ lang.SET_RESSOURCES_CONTINUE }}</button>
     </form>
 
