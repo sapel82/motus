@@ -85,6 +85,8 @@
   "PROFILE_WELCOME_MSG": "Dein Profil",
 
   "INDEX_WELCOME_MSG": "Deine Startseite",
-  "INDEX_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen"
+  "INDEX_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen",
+
+  "ADD_RECORD_WELCOME_MSG": "Eintragung vornehmen"
 
 }

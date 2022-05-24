@@ -1,15 +1,16 @@
 from datetime import date
-from operator import length_hint, truediv
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
+from django.utils import timezone
 import random
+from datetime import date
 
 
 class Gender(models.Model):
     """ Gender Object for user profile. """
 
     id = int
-    objects = None
+    objects = models.Manager()
 
     title = models.CharField(max_length=20)
     icon = models.CharField(max_length=30)
@@ -30,7 +31,7 @@ class Gender(models.Model):
 class MoodFactor(models.Model):
     """ Abstract class for mood factors ressources/stressors """
     id = int
-    objects = None
+    objects = models.Manager()
 
     title = models.CharField(max_length=30)
     icon = models.CharField(max_length=30)
@@ -102,6 +103,38 @@ class UserManager(BaseUserManager):
         return random.randint(min_value, max_value)
 
 
+class RecordManager(models.Manager):
+    """ Record Manager """
+    def records_today(self):
+        return self.get_queryset().filter(timestamp__gte=timezone.now().date())
+
+
+class Record(models.Model):
+    """ Record object """
+
+    id = int
+    objects = RecordManager()
+
+    timestamp = models.DateTimeField(verbose_name='Zeitpunkt der Aufzeichnung')
+    mood = models.IntegerField(verbose_name='Stimmung')
+    note = models.CharField(max_length=255, verbose_name='Notiz')
+
+    ressources = models.ManyToManyField(Ressource)
+    stressors = models.ManyToManyField(Stressor)
+
+    class Meta():
+        managed = True
+        db_table = 'record'
+        verbose_name = 'Aufzeichnung'
+        verbose_name_plural = 'Aufzeichnungen'
+
+    def __str__(self) -> str:
+        return ''
+
+    def as_dict(self) -> dict:
+        return {}
+
+
 class User(AbstractBaseUser):
     """ User object """
 
@@ -115,6 +148,7 @@ class User(AbstractBaseUser):
     activation_code = models.IntegerField(unique=True, default=123456789, verbose_name='Aktivierungscode')
     language = models.CharField(max_length=5, default='de_DE', verbose_name='Gewählte Sprache')
     profile_level = models.IntegerField(default=0, verbose_name='Profilkomplettierung')
+    records = models.ManyToManyField(Record)
     ressources = models.ManyToManyField(Ressource)
     stressors = models.ManyToManyField(Stressor)
 
@@ -145,6 +179,23 @@ class User(AbstractBaseUser):
         """ Is the user account active? """
         return self.is_active
 
+    def can_add_record(self) -> models.BooleanField:
+        """ 
+        Can the user add a new record? 
+
+        A user can add a record up to three times a day, but only add one record
+        at a specific time range. (00:00 - 12:00, 12:00 - 18:00, 18:00 - 00:00)
+        """
+        now = timezone.now()
+        records_today = Record.objects.filter(user=self.id, timestamp__gte=now.date())
+
+        if (now.hour < 12 and len(records_today) == 0) or \
+            (now.hour < 18 and len(records_today) <= 1) or \
+            (now.hour < 24 and len(records_today) <= 2):
+            return True
+        else:
+            return False
+        
     def __str__(self) -> str:
         return 'Profile: {id} - {username} - {gender} - {email}'.format(
             id=self.id, username=self.username, gender=self.gender, email=self.email
@@ -158,35 +209,3 @@ class User(AbstractBaseUser):
             'age': self.age,
             'gender': self.gender
         }
-
-
-class RecordManager(models.Manager):
-    """ Record Manager """
-    def records_today(self):
-        pass
-
-
-class Record(models.Model):
-    """ Record object """
-
-    id = int
-    objects = None
-
-    timestamp = models.DateTimeField(verbose_name='Zeitpunkt der Aufzeichnung')
-    mood = models.IntegerField(verbose_name='Stimmung')
-    note = models.CharField(max_length=255, verbose_name='Notiz')
-
-    ressources = models.ManyToManyField(Ressource)
-    stressors = models.ManyToManyField(Stressor)
-
-    class Meta():
-        managed = True
-        db_table = 'record'
-        verbose_name = 'Aufzeichnung'
-        verbose_name_plural = 'Aufzeichnungen'
-
-    def __str__(self) -> str:
-        return ''
-
-    def as_dict(self) -> dict:
-        return {}

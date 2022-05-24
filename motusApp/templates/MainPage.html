@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'BaseView.html' %}
 {% load static %}
 {% block content %}
 
@@ -24,10 +24,18 @@
 
     {% endfor %}
 
-    <form action="/app/test/" method="POST">
-      {% csrf_token %}
-      <button class="btn btn-primary motus-button shadow" onsubmit="">Eintragen</button>
-    </form>
+    {% if can_add_record %}
+
+      <form action="/app/add_record/" method="GET">
+        {% csrf_token %}
+        <button class="btn btn-primary motus-button shadow" onsubmit="">Eintragen</button>
+      </form>
+
+    {% else %}
+
+      <span>Du kannst jetzt keine Eintragung vornehmen.</span>
+
+    {% endif %}
 
   </div>
 </main>

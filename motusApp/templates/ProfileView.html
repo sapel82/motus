@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'BaseView.html' %}
 {% load static %}
 {% block content %}
 
@@ -72,15 +72,12 @@
           Noch nicht ausgewählt
         {% endif %}
 
-        {% for r in ressources %}
-          {% if r in user_ressources %}
-            <div class="moodfactor-container-profile shadow-sm rounded mb-2 mx-auto justify-content-center" id="profile_ressource_{{ r.id }}">
-              <img class="row mx-auto moodfactor-img" src="{% static 'media/icons/' %}{{ r.icon }}" id="profile_ressource_img_{{ r.id }}" alt="{{ r.title }}"/>
-              <div class="text-center"><small>{{ r.title }}</small></div>
-            </div>
-          {% endif %}
-          
-        {% endfor %}
+        {% for r in user_ressources %}
+          <div class="moodfactor-container-profile shadow-sm rounded mb-2 mx-auto justify-content-center" id="profile_ressource_{{ r.id }}">
+            <img class="row mx-auto moodfactor-img" src="{% static 'media/icons/' %}{{ r.icon }}" id="profile_ressource_img_{{ r.id }}" alt="{{ r.title }}"/>
+            <div class="text-center"><small>{{ r.title }}</small></div>
+          </div>
+        {% endfor %}        
 
       </div>
     </div>

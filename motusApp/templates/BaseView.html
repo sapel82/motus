@@ -20,14 +20,14 @@
       <div class="row">
         <nav class="navbar navbar-expand-md navbar-dark bg-light mb-4 shadow">
           <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}"><img class="motus-header" src="{% static 'media/pictures/motus_header.png' %}" alt="motus"/></a>
+            <a class="navbar-brand" href="{% url 'MainPage' %}"><img class="motus-header" src="{% static 'media/pictures/motus_header.png' %}" alt="motus"/></a>
             <button class="navbar-toggler c-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon c-white"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav mx-auto mt-3 mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link display-6 c-white" href="{% url 'index' %}"><i class="fa-solid fa-house c-white"></i> {{ lang.MOTUS_NAV_MAIN_PAGE }}</a>
+                  <a class="nav-link display-6 c-white" href="{% url 'MainPage' %}"><i class="fa-solid fa-house c-white"></i> {{ lang.MOTUS_NAV_MAIN_PAGE }}</a>
                 </li>
                 <hr class="mt-2 mb-3 c-white"/>
                 <li class="nav-item">
@@ -46,9 +46,9 @@
                     <i class="fa-solid fa-user"></i> {{ user.username }}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item display-6 c-white rounded font-weight-light" href="{% url 'profile' %}"><i class="fa-solid fa-address-card c-white"></i> Profil</a></li>
+                    <li><a class="dropdown-item display-6 c-white rounded font-weight-light" href="{% url 'Profile' %}"><i class="fa-solid fa-address-card c-white"></i> Profil</a></li>
                     <hr class="mt-2 mb-3 c-white"/>
-                    <li><a class="dropdown-item display-6 c-white rounded font-weight-light" href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Ausloggen</a></li>
+                    <li><a class="dropdown-item display-6 c-white rounded font-weight-light" href="{% url 'Logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Ausloggen</a></li>
                   </ul>
                 </li>
                 {% endif %}

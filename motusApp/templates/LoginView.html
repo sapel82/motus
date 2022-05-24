@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'BaseView.html' %}
 {% load static %}
 {% block content %}
 
@@ -18,7 +18,7 @@
     </div>
     {% endif %}
 
-    <form action="/app/login/" method="post">
+    <form class="mb-4" action="/app/login/" method="post">
       {% csrf_token %}
       <input type="hidden" name="next_url" value="{{ next_url }}" />
       <div class="form-floating mb-2">
@@ -32,7 +32,7 @@
         <label for="floatingPassword">{{ lang.LOGIN_PASSWORD }}</label>
       </div>
 
-      <p><a href="{% url 'register' %}">{{ lang.LOGIN_NO_ACCOUNT_MSG }}</a></p>
+      <p><a href="{% url 'Registration' %}">{{ lang.LOGIN_NO_ACCOUNT_MSG }}</a></p>
       <button class="w-100 btn btn-lg btn-primary motus-button shadow" type="submit">{{ lang.LOGIN_LOGIN_BUTTON }}</button>
     </form>
   </div>

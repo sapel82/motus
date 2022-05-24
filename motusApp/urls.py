@@ -5,43 +5,48 @@ from motusApp.views import *
 urlpatterns = [
     path(
         '',
-        app_index,
-        name='index'
+        MainPageView.as_view(),
+        name = 'MainPage'
     ),
     path(
         'login/',
-        app_login,
-        name='login'
+        LoginView.as_view(),
+        name='Login'
     ),
     path(
         'logout/',
-        app_logout,
-        name='logout'
+        LogoutView.as_view(),
+        name='Logout'
     ),
     path(
         'register/',
-        app_register,
-        name='register'
+        RegistrationView.as_view(),
+        name='Registration'
     ),
     path(
         'profile/',
-        app_profile,
-        name='profile'
+        ProfileView.as_view(),
+        name='Profile'
     ),
     path(
         'fill_profile/',
-        app_fill_profile,
-        name='fill_profile'
+        ProfileLevelsView.as_view(),
+        name='ProfileLevels'
     ),
     path(
         'activate/<activation_code>/',
-        app_activate_profile,
-        name='activate_profile'
+        ActivateProfileView.as_view(),
+        name='ActivateProfile'
     ),
     path(
         'set/ressource/<id>/',
         app_set_ressource,
         name='set_ressource'
+    ),
+    path(
+        'add_record/',
+        AddRecordView.as_view(),
+        name='AddRecord'
     ),
     path(
         'test/',
