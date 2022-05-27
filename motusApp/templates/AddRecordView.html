@@ -5,11 +5,123 @@
 <main class="container-fluid p0 m0">
   <div class="content mx-auto">
 
-    <h3 class="mb-3">
+    <h3 class="mb-4">
       motus
       <small class="text-muted"> | {{ lang.ADD_RECORD_WELCOME_MSG }}</small>
     </h3>
 
+    <form action="/app/add_record/" method="post" onsubmit="return checkMoodSelected();">
+      {% csrf_token %}
+
+      <div class="card mb-4 shadow">
+        <h6 class="card-header">
+          {{ lang.ADD_RECORD_MOOD_QUESTION }}
+        </h6>
+        <div class="card-body">
+          <div class="form-group">
+            <div class="row mx-auto w-100">
+    
+              <input type="radio" name="mood" class="sr-only" value="1" id="mood1">
+              <label for="mood1" style="width:20%;">
+                <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="mood_1">
+                  <img class="row mx-auto mood-img" src="{% static 'media/icons/mood_1.png' %}" alt="mood 1">
+                </div>
+              </label>
+    
+              <input type="radio" name="mood" class="sr-only" value="2" id="mood2">
+              <label for="mood2" style="width:20%;">
+                <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="mood_2">
+                  <img class="row mx-auto mood-img" src="{% static 'media/icons/mood_2.png' %}" alt="mood 2">
+                </div>
+              </label>
+    
+              <input type="radio" name="mood" class="sr-only" value="3" id="mood3">
+              <label for="mood3" style="width:20%;">
+                <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="mood_3">
+                  <img class="row mx-auto mood-img" src="{% static 'media/icons/mood_3.png' %}" alt="mood 3">
+                </div>
+              </label>
+    
+              <input type="radio" name="mood" class="sr-only" value="4" id="mood4">
+              <label for="mood4" style="width:20%;">
+                <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="mood_4">
+                  <img class="row mx-auto mood-img" src="{% static 'media/icons/mood_4.png' %}" alt="mood 4">
+                </div>
+              </label>
+    
+              <input type="radio" name="mood" class="sr-only" value="5" id="mood5">
+              <label for="mood5" style="width:20%;">
+                <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" id="mood_5">
+                  <img class="row mx-auto mood-img" src="{% static 'media/icons/mood_5.png' %}" alt="mood 5">
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4 shadow">
+        <h6 class="card-header">
+          {{ lang.ADD_RECORD_RESSOURCE_QUESTION }}
+        </h6>
+        <div class="card-body">
+          <div class="form-group row mx-auto">
+            {% for r in ressources %}
+
+              <div class="form-check form-switch mb-2 shadow-sm mx-auto rounded fs-res mood-factor-switch-box">
+                <input class="form-check-input mood-factor-switch-input" type="checkbox" role="switch" name="r_{{ r.id }}" id="r_{{ r.id }}">
+                <label class="form-check-label f-size-18" for="r_{{ r.id }}">&nbsp;{{ r.title }}</label>
+              </div>
+
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4 shadow">
+        <h6 class="card-header">
+          {{ lang.ADD_RECORD_STRESSOR_QUESTION }}
+        </h6>
+        <div class="card-body">
+          <div class="form-group row mx-auto">
+            {% for s in stressors %}
+
+              <div class="form-check form-switch mb-2 shadow-sm mx-auto rounded fs-str mood-factor-switch-box">
+                <input class="form-check-input mood-factor-switch-input" type="checkbox" role="switch" name="s_{{ s.id }}" id="s_{{ s.id }}">
+                <label class="form-check-label f-size-18" for="s_{{ s.id }}">&nbsp;{{ s.title }}</label>
+              </div>
+
+            {% endfor %}
+          </div>
+        </div>
+      </div>      
+
+      <div class="card mb-4 shadow">
+        <h6 class="card-header">
+          {{ lang.ADD_RECORD_NOTE_QUESTION }}
+        </h6>
+        <div class="card-body">
+          <div class="form-group">
+            <textarea class="form-control" id="note" name="note" rows="3" maxlength="255"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary motus-button mb-4 shadow" type="submit">{{ lang.ADD_RECORD_SAVE_BUTTON }}</button>
+    </form>
+
+    <div class="modal fade" id="noMoodSelectedModal" tabindex="-1" aria-labelledby="noMoodSelectedModal" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-body">
+                  {{ lang.ADD_RECORD_CHOOSE_MOOD }}
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary motus-button" data-bs-dismiss="modal">{{ lang.BUTTON_OK }}</button>
+              </div>
+          </div>
+      </div>
+    </div>
 
   </div>
 </main>

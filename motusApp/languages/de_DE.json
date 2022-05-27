@@ -84,9 +84,20 @@
 
   "PROFILE_WELCOME_MSG": "Dein Profil",
 
-  "INDEX_WELCOME_MSG": "Deine Startseite",
-  "INDEX_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen",
+  "MAINPAGE_WELCOME_MSG": "Deine Startseite",
+  "MAINPAGE_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen",
+  "MAINPAGE_ADD_NEW_RECORD": "Neuen Eintrag vornehmen",
+  "MAINPAGE_ADD_NEW_RECORD_NOT_AVAILABLE": "Jetzt nicht möglich",
 
-  "ADD_RECORD_WELCOME_MSG": "Eintragung vornehmen"
+  "ADD_RECORD_WELCOME_MSG": "Eintragung vornehmen",
+  "ADD_RECORD_MOOD_QUESTION": "Wie ist deine Stimmung?",
+  "ADD_RECORD_RESSOURCE_QUESTION": "Was hat dich {time} aufgemuntert?",
+  "ADD_RECORD_STRESSOR_QUESTION": "Was bereitete dir {time} Sorgen?",
+  "ADD_RECORD_MORNING_VAR": "heute morgen",
+  "ADD_RECORD_NOON_VAR": "heute",
+  "ADD_RECORD_EVENING_VAR": "heute abend",
+  "ADD_RECORD_NOTE_QUESTION": "Möchtest du eine Notiz hinzufügen?",
+  "ADD_RECORD_SAVE_BUTTON": "Eintrag abspeichern",
+  "ADD_RECORD_CHOOSE_MOOD": "Bitte wähle deine Stimmung aus."
 
 }

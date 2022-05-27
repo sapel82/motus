@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, View
 from datetime import datetime
 from smtplib import SMTPAuthenticationError
 from motusAPI.models import *
-from motusApp.helpers import GMail
+from motusApp.helpers import AddRecordTimeVar, GMail, AddRecordTimeVar
 from motus.config import lang
 import json
 
@@ -30,15 +30,41 @@ class AddRecordView(TemplateView):
     template_name = 'AddRecordView.html'
 
     def get(self, request):
-        return render(request, self.template_name, context=self.get_context_data())
+        user = request.user
+        if user.can_add_record():
+            return render(request, self.template_name, context=self.get_context_data())
+        else:
+            return redirect('MainPage')
 
     def post(self, request):
-        pass
+
+        now = timezone.now()
+        mood = request.POST['mood']
+        note = request.POST['note']
+
+        r = Record(timestamp=now, mood=mood, note=note)
+        r.save()
+        request.user.records.add(r)
+
+        for i in range(1, 21):
+            if 'r_{id}'.format(id=i) in request.POST:
+                r.ressources.add(Ressource.objects.filter(id=i).first())
+
+        for i in range(1, 14):
+            if 's_{id}'.format(id=i) in request.POST:
+                r.stressors.add(Stressor.objects.filter(id=i).first())
+
+        return redirect('MainPage')
 
     def get_context_data(self, **kwargs):
+        lang['ADD_RECORD_RESSOURCE_QUESTION'] = lang['ADD_RECORD_RESSOURCE_QUESTION'].format(time=AddRecordTimeVar())
+        lang['ADD_RECORD_STRESSOR_QUESTION'] = lang['ADD_RECORD_STRESSOR_QUESTION'].format(time=AddRecordTimeVar())
+        print(lang['ADD_RECORD_STRESSOR_QUESTION'])        
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         context['lang'] = lang
+        context['ressources'] = Ressource.objects.all()
+        context['stressors'] = Stressor.objects.all()
         return context
 
 
@@ -52,12 +78,8 @@ class MainPageView(TemplateView):
     def get(self, request, *args, **kwargs):
         user = request.user
         if user.profile_level == 2:
-
-            now = timezone.now()
-
             if user.can_add_record():
                 self.can_add_record = True
-
             return render(request, self.template_name, context=self.get_context_data())
         else:
             return redirect('ProfileLevels')
@@ -67,7 +89,7 @@ class MainPageView(TemplateView):
         context['user'] = self.request.user
         context['lang'] = lang
         context['can_add_record'] = self.can_add_record
-        context['records_all'] = Record.objects.all()
+        context['records'] = Record.objects.filter(user=self.request.user).order_by('-id')
         return context
 
 

@@ -30,6 +30,7 @@
 /* Breakpoints */
 /***********************************************************************************************/
 @media (min-width: 320px) {
+    .display-6 {font-size:1.7rem !important;}
 
 }
 
@@ -37,6 +38,9 @@
     .content {
         width: 95%;
     }
+
+    .display-6 {font-size:2.0rem !important;}
+
 }
 
 @media (min-width: 768px) {
@@ -70,10 +74,12 @@
 
 /* Formatting */
 /***********************************************************************************************/
+.w-20 { width: 20%; }
 .w-33 { width: 33%; }
 .w-40 { width: 40%; }
 .w-60 { width: 60%; }
 .w-66 { width: 66%; }
+.w-80 { width: 80%; }
 .w-85 { width: 85%; }
 .w-90 { width: 90%; }
 .w-95 { width: 95%; }
@@ -83,8 +89,9 @@
 .c-white { color: var(--white-color) !important; }
 .c-icon { color: var(--brand-icon-color) }
 
-.f-site-14 { font-size: 14px; }
+.f-size-14 { font-size: 14px; }
 .f-size-18 { font-size: 18px; }
+.f-size-20 { font-size: 20px; }
 .f-size-22 { font-size: 22px; }
 
 .justify { text-align: justify; }
@@ -92,6 +99,11 @@
 
 .brand-color { color: var(--brand-color); }
 .brand-background-color { background-color: var(--brand-background-color); }
+
+.greyscale { filter: grayscale(100%); }
+
+.bg-ressource-badge { background-color: #5ea744; }   /*3ba239   3fa64d*/   
+.bg-stressor-badge { background-color: #e28169; }    /*de6f54      ff8080     ff6666*/       
 /***********************************************************************************************/
 
 
@@ -188,27 +200,58 @@ a.dropdown-item:hover {
 }
 
 .moodfactor-container {
-    padding:5px; 
-    border:1px solid var(--border-color-brighter); 
+    padding: 5px; 
+    border: 1px solid var(--border-color-brighter); 
     width: 32%; 
     max-width: 32%; 
-    height:auto;
+    height: auto;
     min-width: 100px;
 }
 
 .moodfactor-container-profile {
-    padding:5px; 
-    border:1px solid var(--border-color-brighter); 
+    padding: 5px; 
+    border: 1px solid var(--border-color-brighter); 
     width: 32%; 
     max-width: 32%; 
-    height:auto;
+    height: auto;
     min-width: 100px;
 }
 
 .moodfactor-img {
-    width:100%;
+    width: 100%;
     height: auto; 
     max-width: 100px; 
+}
+
+.mood-container {
+    padding: 5px;
+    border: 1px solid var(--border-color-brighter);
+    width: 19%;
+    max-width: 19%;
+    height: auto;
+    min-width: 55px;
+}
+
+.mood-img {
+    width: 100%;
+    height: auto;
+    max-width: 100px;
+    vertical-align: middle;
+}
+
+.list-group-item {
+    background-color: var(--brand-content-box-background-color);
+}
+
+.mood-factor-switch-box {
+    padding-top: 3px; 
+    padding-bottom: 3px; 
+    width:48%; border:1px solid var(--border-color-brighter);
+}
+
+.mood-factor-switch-input {
+    height: 22px !important; 
+    width: 40px !important;
 }
 /***********************************************************************************************/
 
@@ -243,6 +286,29 @@ a.dropdown-item:hover {
     background-color: var(--brand-button-hover-color);
     border-color: var(--border-color);
 }
+
+label {
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+  
+label:hover {
+    filter: grayscale(50%);
+}
+
+input[type="radio"]:checked + label {
+    filter: grayscale(0);
+}
+
+.fs-res .form-check-input:checked {
+    background-color: #5ea744;
+    border-color: var(--border-color)
+}
+
+.fs-str .form-check-input:checked {
+    background-color: #e28169;
+    border-color: var(--border-color)
+}
 /***********************************************************************************************/
 
 
@@ -265,5 +331,7 @@ a.dropdown-item:hover {
     }
 }
 /***********************************************************************************************/
+
+
 
 

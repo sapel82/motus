@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.utils import timezone
 import random
-from datetime import date
+from datetime import date, datetime
 
 
 class Gender(models.Model):
@@ -105,8 +105,13 @@ class UserManager(BaseUserManager):
 
 class RecordManager(models.Manager):
     """ Record Manager """
-    def records_today(self):
-        return self.get_queryset().filter(timestamp__gte=timezone.now().date())
+    def user_records_today(self, user):
+        now = timezone.now()
+        morning = self.get_queryset().filter(user=user, timestamp__range=(now.replace(hour=0, minute=0), now.replace(hour=11, minute=59)))
+        noon =self.get_queryset().filter(user=user, timestamp__range=(now.replace(hour=12, minute=0), now.replace(hour=17, minute=59)))
+        evening =self.get_queryset().filter(user=user, timestamp__range=(now.replace(hour=18, minute=0), now.replace(hour=23, minute=59)))
+
+        return (morning, noon, evening)
 
 
 class Record(models.Model):
@@ -129,7 +134,7 @@ class Record(models.Model):
         verbose_name_plural = 'Aufzeichnungen'
 
     def __str__(self) -> str:
-        return ''
+        return 'Record: {id} - {ts} - {mood} - {note}'.format(id=self.id, ts=self.timestamp, mood=self.mood, note=self.note)
 
     def as_dict(self) -> dict:
         return {}
@@ -187,14 +192,13 @@ class User(AbstractBaseUser):
         at a specific time range. (00:00 - 12:00, 12:00 - 18:00, 18:00 - 00:00)
         """
         now = timezone.now()
-        records_today = Record.objects.filter(user=self.id, timestamp__gte=now.date())
+        records_today = Record.objects.user_records_today(self)
 
-        if (now.hour < 12 and len(records_today) == 0) or \
-            (now.hour < 18 and len(records_today) <= 1) or \
-            (now.hour < 24 and len(records_today) <= 2):
+        if (now.hour >= 0 and now.hour < 12 and len(records_today[0]) == 0) or \
+           (now.hour >= 12 and now.hour < 18 and len(records_today[1]) == 0) or \
+           (now.hour >= 18 and now.hour < 24 and len(records_today[2]) == 0):
             return True
-        else:
-            return False
+        return False
         
     def __str__(self) -> str:
         return 'Profile: {id} - {username} - {gender} - {email}'.format(
