@@ -46,11 +46,14 @@ class AddRecordView(TemplateView):
         r.save()
         request.user.records.add(r)
 
-        for i in range(1, 21):
+        ressources_count = Ressource.objects.all().count()
+        stressor_count = Stressor.objects.all().count()
+
+        for i in range(1, ressources_count + 1):
             if 'r_{id}'.format(id=i) in request.POST:
                 r.ressources.add(Ressource.objects.filter(id=i).first())
 
-        for i in range(1, 14):
+        for i in range(1, stressor_count + 1):
             if 's_{id}'.format(id=i) in request.POST:
                 r.stressors.add(Stressor.objects.filter(id=i).first())
 
