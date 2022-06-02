@@ -31,12 +31,14 @@
                   <a class="nav-link display-6 c-white" href="{% url 'MainPage' %}"><i class="fa-solid fa-house c-white"></i> {{ lang.MOTUS_NAV_MAIN_PAGE }}</a>
                 </li>
                 <hr class="mt-2 mb-3 c-white"/>
+                {% if user.username %}
+                  <li class="nav-item">
+                    <a class="nav-link display-6 c-white" href="{% url 'Statistics' %}"><i class="fa-solid fa-chart-bar c-white"></i> {{ lang.MOTUS_NAV_STATISTICS }}</a>
+                  </li>
+                  <hr class="mt-2 mb-3 c-white"/>
+                {% endif %}
                 <li class="nav-item">
-                  <a class="nav-link display-6 c-white" href="#"><i class="fa-solid fa-chart-bar c-white"></i> {{ lang.MOTUS_NAV_STATISTICS }}</a>
-                </li>
-                <hr class="mt-2 mb-3 c-white"/>
-                <li class="nav-item">
-                  <a class="nav-link display-6 c-white" href="#"><i class="fa-solid fa-circle-question c-white"></i> {{ lang.MOTUS_NAV_HELP }}</a>
+                  <a class="nav-link display-6 c-white" href="{% url 'Help' %}"><i class="fa-solid fa-circle-question c-white"></i> {{ lang.MOTUS_NAV_HELP }}</a>
                 </li>
 
                 {% if user.username %}
@@ -70,10 +72,11 @@
       </div>
     </footer>
 
-    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/libs/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/motus.js' %}"></script>
     <script src="https://kit.fontawesome.com/b048ccd3c9.js" crossorigin="anonymous"></script>
+    <!--<script src="//cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>-->
 
   </body>
 

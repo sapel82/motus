@@ -113,6 +113,14 @@ class RecordManager(models.Manager):
 
         return (morning, noon, evening)
 
+    def user_records_for_day(self, user, date):
+        records = self.get_queryset().filter(user=user, timestamp__range=(date.replace(hour=0, minute=0), date.replace(hour=23, minute=59)))
+        return records
+
+    def user_records(self, user):
+        records = self.get_queryset().filter(user=user)
+        return records
+
 
 class Record(models.Model):
     """ Record object """

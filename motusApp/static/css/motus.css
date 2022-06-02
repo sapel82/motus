@@ -89,6 +89,7 @@
 .c-white { color: var(--white-color) !important; }
 .c-icon { color: var(--brand-icon-color) }
 
+.f-size-12 { font-size: 12px; }
 .f-size-14 { font-size: 14px; }
 .f-size-18 { font-size: 18px; }
 .f-size-20 { font-size: 20px; }
@@ -253,6 +254,19 @@ a.dropdown-item:hover {
     height: 22px !important; 
     width: 40px !important;
 }
+
+/*
+chart-card {
+    height: 275px !important;
+}
+
+chart-container {
+    background-color: var(--brand-background-color);
+    border: 1px solid var(--border-color-brighter);
+    height: 100%;
+}
+*/
+
 /***********************************************************************************************/
 
 

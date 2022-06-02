@@ -34,7 +34,7 @@
     
       <div class="card mb-4 shadow">
         <h6 class="card-header">
-          {{ r.timestamp|date}} - {{ r.timestamp|time }} Uhr
+          <i class="fa-solid fa-calendar-day"></i> {{ r.timestamp|date:"l" }}, {{ r.timestamp|date}} <span class="float-end"><i class="fa-solid fa-clock"></i> {{ r.timestamp|time }} Uhr</span>
         </h6>
         <div class="card-body">
           <ul class="list-group list-group-flush brand-background-color rounded w-100">

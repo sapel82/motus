@@ -34,7 +34,14 @@ def run():
     Ressource.objects.create(title='Schlafen', icon='sleeping.png')
     Ressource.objects.create(title='Sport', icon='sport.png')
     Ressource.objects.create(title='Videospiele', icon='videogames.png')
-    Ressource.objects.create(title='Partnerschaft', icon='love.png')
+    Ressource.objects.create(title='Beziehung', icon='hearts.png')
+    Ressource.objects.create(title='Gartenarbeit', icon='farming.png')
+    Ressource.objects.create(title='Essen', icon='food.png')
+    Ressource.objects.create(title='Schwimmen', icon='swim.png')
+    Ressource.objects.create(title='Kaffee', icon='coffee.png')
+    Ressource.objects.create(title='Restaurant', icon='restaurant.png')
+    Ressource.objects.create(title='Gespräch', icon='chat.png')
+    Ressource.objects.create(title='Wetter', icon='sun.png')
 
     Stressor.objects.create(title='Grübeln', icon='ponder.png')
     Stressor.objects.create(title='Stress', icon='stress.png')
@@ -49,9 +56,4 @@ def run():
     Stressor.objects.create(title='Erschöpfung', icon='exhaustion.png')
     Stressor.objects.create(title='Alptraum', icon='nightmare.png')
     Stressor.objects.create(title='Angst', icon='anxiety.png')
-
-
-
-
-
-
+    Stressor.objects.create(title='Wetter', icon='raining.png')

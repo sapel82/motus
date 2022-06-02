@@ -49,6 +49,26 @@ urlpatterns = [
         name='AddRecord'
     ),
     path(
+        'statistics/',
+        StatisticsView.as_view(),
+        name='Statistics'
+    ),
+    path(
+        'help/',
+        HelpView.as_view(),
+        name='Help'
+    ),    
+    path(
+        'weekly_data/',
+        weekly_data,
+        name='WeeklyData'
+    ),    
+    path(
+        'alltime_data/',
+        alltime_data,
+        name='AllTimeData'
+    ),    
+    path(
         'test/',
         app_test,
         name='test'

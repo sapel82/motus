@@ -4,12 +4,13 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, View
-from datetime import datetime
+from datetime import datetime, timedelta
 from smtplib import SMTPAuthenticationError
 from motusAPI.models import *
 from motusApp.helpers import AddRecordTimeVar, GMail, AddRecordTimeVar
 from motus.config import lang
 import json
+import collections
 
 
 if lang == 'de_DE':
@@ -20,7 +21,54 @@ decorators = [login_required, never_cache]
 
 
 def app_test(request):
-    return HttpResponse('test')
+    return HttpResponse('OK')
+
+
+@method_decorator(decorators, name='dispatch')
+class StatisticsView(TemplateView):
+    """ Statistics View """
+
+    template_name = 'StatisticPageView.html'
+
+    def get(self, request):
+        return render(request, self.template_name, context=self.get_context_data())
+
+    def post(self, request):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['lang'] = lang
+
+        ressources = []
+        for record in self.request.user.records.all():
+            for ressource in record.ressources.all():
+                ressources.append(ressource)
+        context['top5_ressources'] = collections.Counter(ressources).most_common()[0:5]
+
+        stressors = []
+        for record in self.request.user.records.all():
+            for stressor in record.stressors.all():
+                stressors.append(stressor)
+        context['top5_stressors'] = collections.Counter(stressors).most_common()[0:5]
+
+        return context
+
+
+class HelpView(TemplateView):
+    """ Help View """        
+
+    template_name = 'HelpPageView.html'
+
+    def get(self, request):
+        return render(request, self.template_name, context=self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['lang'] = lang
+        return context
 
 
 @method_decorator(decorators, name='dispatch')
@@ -62,7 +110,6 @@ class AddRecordView(TemplateView):
     def get_context_data(self, **kwargs):
         lang['ADD_RECORD_RESSOURCE_QUESTION'] = lang['ADD_RECORD_RESSOURCE_QUESTION'].format(time=AddRecordTimeVar())
         lang['ADD_RECORD_STRESSOR_QUESTION'] = lang['ADD_RECORD_STRESSOR_QUESTION'].format(time=AddRecordTimeVar())
-        print(lang['ADD_RECORD_STRESSOR_QUESTION'])        
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         context['lang'] = lang
@@ -128,6 +175,7 @@ class ProfileLevelsView(TemplateView):
         return context
 
 
+@method_decorator(decorators, name='dispatch')
 class ProfileView(TemplateView):
     """ Profile View """
 
@@ -272,7 +320,7 @@ class RegistrationView(TemplateView):
 
 def app_set_ressource(request, id: int):
     """ Activate/Deactivate a ressource for a user profile """
-    user =request.user
+    user = request.user
     ressource = Ressource.objects.get(id=id)
 
     if user.ressources.filter(id=id).exists():
@@ -281,3 +329,46 @@ def app_set_ressource(request, id: int):
     else:
         user.ressources.add(ressource)
         return HttpResponse('true')
+
+
+def date_range(start_date, end_date):
+    for n in range(0, int((end_date - start_date).days) + 1, 1):
+        yield start_date + timedelta(n)
+
+
+@login_required
+def weekly_data(request):
+    """ Return data for weekly chart"""
+    user = request.user
+    today = timezone.now()
+    start_date = today - timedelta(days=-1, weeks=1)
+
+    days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+    moodValues = [-2, -1, 0, 1, 2]
+    data = [[],[]]
+    
+    for dt in date_range(start_date, today):
+        records = Record.objects.user_records_for_day(user, dt)
+        data[0].append(days[dt.weekday()])
+        if records:
+            average = 0
+            for r in records:
+                average += moodValues[r.mood-1]
+            average /= len(records)
+            data[1].append(average)
+        else:
+            data[1].append(None)
+        
+    return HttpResponse(json.dumps(data))
+
+
+@login_required
+def alltime_data(request):
+    """ Return data for alltime chart """
+    user = request.user
+    records = Record.objects.user_records(user)
+    data = [0, 0, 0, 0, 0]
+    for r in records: 
+        data[r.mood-1] += 1
+
+    return HttpResponse(json.dumps(data))

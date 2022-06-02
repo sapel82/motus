@@ -98,6 +98,9 @@
   "ADD_RECORD_EVENING_VAR": "heute abend",
   "ADD_RECORD_NOTE_QUESTION": "Möchtest du eine Notiz hinzufügen?",
   "ADD_RECORD_SAVE_BUTTON": "Eintrag abspeichern",
-  "ADD_RECORD_CHOOSE_MOOD": "Bitte wähle deine Stimmung aus."
+  "ADD_RECORD_CHOOSE_MOOD": "Bitte wähle deine Stimmung aus.",
 
+  "STATISTICS_WELCOME_MSG": "Deine Statistik",
+
+  "HELP_WELCOME_MSG": "Hilfebereich"
 }

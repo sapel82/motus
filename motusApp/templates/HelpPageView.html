@@ -1,0 +1,17 @@
+{% extends 'BaseView.html' %}
+{% load static %}
+{% block content %}
+
+<main class="container-fluid p0 m0">
+
+  <div class="content mx-auto">
+
+    <h3 class="mb-3">
+      {{ user.username }}
+      <small class="text-muted"> | {{ lang.HELP_WELCOME_MSG }}</small>
+    </h3>
+
+  </div>
+</main>
+
+{% endblock %}
