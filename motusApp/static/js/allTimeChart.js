@@ -38,6 +38,22 @@ const alltime_plugins = {
     legend: {
         position: 'bottom'
     },
+    tooltip: {
+        enabled: true,
+        callbacks: {
+          footer: (ttItem) => {
+            let sum = 0;
+            let dataArr = ttItem[0].dataset.data;
+            dataArr.map(data => {
+              sum += Number(data);
+            });
+
+            let percentage = (ttItem[0].parsed * 100 / sum).toFixed(2) + '%';
+            return `Das entspricht: ${percentage}`;
+          }
+        }
+
+    }
 }
 
 const alltime_scales  = {

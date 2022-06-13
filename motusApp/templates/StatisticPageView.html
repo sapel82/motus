@@ -3,6 +3,8 @@
 {% block content %}
 
 <script src="//cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
+
 <script src="{% static 'js/libs/jquery-3.6.0.js' %}"></script>
 
 
@@ -17,7 +19,7 @@
 
     <div class="card mb-4 shadow">
         <h6 class="card-header">
-          Die letzten 7 Tage <span class="float-end"><i class="fa-solid fa-chart-line"></i></span>
+          {{ lang.STATISTICS_7_DAYS}} <span class="float-end"><i class="fa-solid fa-chart-line"></i></span>
         </h6>
         <div class="card-body chart-card" style="height: 275px;">
             <div class="chart-container" style="height: 100%">
@@ -28,7 +30,7 @@
 
     <div class="card mb-4 shadow">
         <h6 class="card-header">
-          Ingesamt <span class="float-end"><i class="fa-solid fa-chart-pie"></i></span>
+          {{ lang.STATISTICS_ALL_TIME }} <span class="float-end"><i class="fa-solid fa-chart-pie"></i></span>
         </h6>
         <div class="card-body chart-card" style="height: 275px;">
             <div class="chart-container" style="height: 100%">
@@ -39,12 +41,12 @@
 
     <div class="card mb-4 shadow">
         <h6 class="card-header">
-          Top 5 <span class="float-end"><i class="fa-solid fa-ranking-star"></i></span>
+          {{ lang.STATISTICS_TOP_5 }} <span class="float-end"><i class="fa-solid fa-ranking-star"></i></span>
         </h6>
         <div class="card-body">
             <div class="row mx-auto justify-content-center">
             <div class="col-5 text-center rounded shadow-sm" style="background-color: #a6ce7e; padding:3px;"> <!--#7ece7e-->
-                <h6>Ressourcen</h6>
+                <h6>{{ lang.STATISTICS_RESOURCES }}</h6>
                 {% for ressource in top5_ressources %}
                     <div class="shadow-sm rounded mb-2 mx-auto justify-content-center w-95" style="background-color: #f2fff7">
                         <img class="row mx-auto moodfactor-img" src="{% static 'media/icons/' %}{{ ressource.0.icon }}" alt="{{ ressource.0.title }}"/>
@@ -54,7 +56,7 @@
             </div>
             <div class="col-1"></div>
             <div class="col-5 text-center rounded shadow-sm" style="background-color: #cea67e; padding:3px;"> <!--#ce7e7e-->
-                <h6>Stressoren</h6>
+                <h6>{{ lang.STATISTICS_STRESSORS}}</h6>
                 {% for stressor in top5_stressors %}
                     <div class="shadow-sm rounded mb-2 mx-auto justify-content-center w-95" style="background-color: #f2fff7">
                         <img class="row mx-auto moodfactor-img" src="{% static 'media/icons/' %}{{ stressor.0.icon }}" alt="{{ stressor.0.title }}"/>
@@ -71,6 +73,5 @@
 
 <script src="{% static 'js/weeklyChart.js' %}"></script>
 <script src="{% static 'js/allTimeChart.js' %}"></script>
-
 
 {% endblock %}

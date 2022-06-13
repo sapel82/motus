@@ -62,6 +62,7 @@ class Stressor(MoodFactor):
     """ Stressor object for user profile and records """
     class Meta(MoodFactor.Meta):
         managed = True
+        ordering = ['title']
         db_table = 'stressor'
         verbose_name = 'Stressor'
         verbose_name_plural = 'Stressoren'

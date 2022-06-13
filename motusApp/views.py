@@ -1,12 +1,17 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, View
+from django.template.loader import render_to_string
+from django.core import paginator
+from django.http import JsonResponse
 from datetime import datetime, timedelta
 from smtplib import SMTPAuthenticationError
 from motusAPI.models import *
+from motusApp.decorators import motus_called_from_app
 from motusApp.helpers import AddRecordTimeVar, GMail, AddRecordTimeVar
 from motus.config import lang
 import json
@@ -15,9 +20,12 @@ import collections
 
 if lang == 'de_DE':
     with open('motusApp/languages/de_DE.json') as file:
+
         lang = json.load(file)
 
 decorators = [login_required, never_cache]
+if settings.DEBUG == False:
+    decorators.append(motus_called_from_app)
 
 
 def app_test(request):
@@ -124,23 +132,42 @@ class MainPageView(TemplateView):
 
     template_name = 'MainPage.html'
     can_add_record = False
+    records_count_per_page = 5
 
     def get(self, request, *args, **kwargs):
         user = request.user
         if user.profile_level == 2:
+
             if user.can_add_record():
                 self.can_add_record = True
-            return render(request, self.template_name, context=self.get_context_data())
+
+            if request.GET.get('page'):
+                page = int(request.GET.get('page'))
+            else:
+                page = 1
+
+            records = Record.objects.filter(user=self.request.user).order_by('-id')        
+            p = paginator.Paginator(records, self.records_count_per_page)
+
+            try:
+                records_page = p.page(page)
+            except paginator.EmptyPage:
+                records_page = paginator.Page([], page, p)
+
+            if not request.is_ajax():
+                context = {'user': user, 'lang': lang, 'records': records_page, 'can_add_record': self.can_add_record}
+                return render(request, self.template_name, context=context)
+            else:
+                content = ''
+                for record in records_page:
+                    content += render_to_string('RecordItemView.html', {'r': record}, request=request)
+                return JsonResponse({
+                    'content': content,
+                    'end_pagination': True if page >= p.num_pages else False
+                })
+
         else:
-            return redirect('ProfileLevels')
-        
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        context['lang'] = lang
-        context['can_add_record'] = self.can_add_record
-        context['records'] = Record.objects.filter(user=self.request.user).order_by('-id')
-        return context
+            return redirect('ProfileLevels')  
 
 
 @method_decorator(decorators, name='dispatch')
@@ -358,7 +385,7 @@ def weekly_data(request):
             data[1].append(average)
         else:
             data[1].append(None)
-        
+
     return HttpResponse(json.dumps(data))
 
 

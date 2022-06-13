@@ -15,6 +15,8 @@ const weeklyData = getWeeklyData();
 
 const weekly_labels = weeklyData[0];
 
+const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+
 const weekly_data = {
     labels: weekly_labels,
     datasets: [{
@@ -25,6 +27,11 @@ const weekly_data = {
         hoverBorderWidth: 3,
         pointRadius: 5,
         cubicInterpolationMode: 'monotone',
+        segment: {
+            borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.3)'),
+            borderDash: ctx => skipped(ctx, [6, 6]),
+          },
+        spanGaps: true,
         data: weeklyData[1],
     }]
 };
@@ -50,38 +57,13 @@ const weekly_scales = {
         max: 2,
         ticks: {
             stepSize: 1,
-            // font: {
-            //     size: 12
-            // },
             callback: function(value, index, ticks) {
-                /*
                 switch (value) {
                     case 0:
+                        return 'neutral';
+
+                    case -2.2:
                         return '';
-
-                    case 1:
-                        return 'sehr traurig';
-                    
-                    case 2:
-                        return 'traurig';
-
-                    case 3:
-                        return 'neutral';
-
-                    case 4:
-                        return 'fröhlich';
-
-                    case 5:
-                        return 'sehr fröhlich';
-
-                    default:
-                        return "Hmm";
-                }
-                */
-                
-                switch (value) {
-                    case 0:
-                        return 'neutral';
 
                     case -2:
                         return 'sehr traurig';
@@ -95,8 +77,11 @@ const weekly_scales = {
                     case 2:
                         return 'sehr fröhlich';
 
+                    case 2.2:
+                        return '';
+
                     default:
-                        return "Hmm";
+                        return "";
                 }
             }
         },

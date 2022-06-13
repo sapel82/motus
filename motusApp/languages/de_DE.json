@@ -101,6 +101,12 @@
   "ADD_RECORD_CHOOSE_MOOD": "Bitte wähle deine Stimmung aus.",
 
   "STATISTICS_WELCOME_MSG": "Deine Statistik",
+  "STATISTICS_7_DAYS": "Die letzten 7 Tage",
+  "STATISTICS_ALL_TIME": "Insgesamt",
+  "STATISTICS_TOP_5": "Top 5",
+  "STATISTICS_RESOURCES": "Ressourcen",
+  "STATISTICS_STRESSORS": "Stressoren",
+
 
   "HELP_WELCOME_MSG": "Hilfebereich"
 }

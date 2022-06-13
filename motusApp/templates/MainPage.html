@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+<script src="{% static 'js/libs/jquery-3.6.0.js' %}"></script>
+
 <main class="container-fluid p0 m0">
   <div class="content mx-auto">
 
@@ -15,7 +17,7 @@
       <div class="text-center">
       <form action="/app/add_record/" method="GET">
         {% csrf_token %}
-        <button class="btn btn-primary btn-lg motus-button shadow mb-4"><i class="fa-solid fa-circle-plus"></i> {{ lang.MAINPAGE_ADD_NEW_RECORD }}</button>
+        <button class="btn btn-primary btn-lg motus-button shadow mb-4"><i class="fas fa-circle-plus"></i> {{ lang.MAINPAGE_ADD_NEW_RECORD }}</button>
       </form>
       </div>
 
@@ -24,71 +26,31 @@
       <div class="text-center">
         <form action="/app/add_record/" method="GET">
           {% csrf_token %}
-          <button class="btn btn-primary btn-lg motus-button shadow mb-4 disabled" style="background-color: grey; border-color: grey;"><i class="fa-solid fa-circle-plus"></i> {{ lang.MAINPAGE_ADD_NEW_RECORD_NOT_AVAILABLE }}</button>
+          <button class="btn btn-primary btn-lg motus-button shadow mb-4 disabled" style="background-color: grey; border-color: grey;"><i class="fas fa-circle-plus"></i> {{ lang.MAINPAGE_ADD_NEW_RECORD_NOT_AVAILABLE }}</button>
         </form>
         </div>
 
     {% endif %}
 
-    {% for r in records %}
-    
-      <div class="card mb-4 shadow">
-        <h6 class="card-header">
-          <i class="fa-solid fa-calendar-day"></i> {{ r.timestamp|date:"l" }}, {{ r.timestamp|date}} <span class="float-end"><i class="fa-solid fa-clock"></i> {{ r.timestamp|time }} Uhr</span>
-        </h6>
-        <div class="card-body">
-          <ul class="list-group list-group-flush brand-background-color rounded w-100">
-            <li class="list-group-item">
-              <div class="row mx-auto">
-                {% for i in "12345" %}
-                    {% if i == r.mood|stringformat:"i" %}
-                      {% firstof "" as gs %}
-                    {% else %}
-                      {% firstof "greyscale" as gs %}
-                    {% endif %}
-                    <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" style="float:left; width:10%; height:auto; max-width: 5%;">
-                      <img class="row mx-auto mood-img {{ gs }}" src="{% static 'media/icons/mood_' %}{{ i }}.png" alt="mood {{ r.mood }}">
-                    </div>
-                  {% endfor %}
-              </div>
-            </li>  
-            <li class="list-group-item">
-              <div class="mx-auto w-100 text-center">
+    <div class="records-list">
+      {% for r in records %}
+          {% include 'RecordItemView.html' %}
 
-                {% for ressource in r.ressources.all %}
-                  <span class="badge rounded-pill shadow-sm bg-ressource-badge">{{ ressource.title }}</span>
-                {% endfor %}
-    
-                {% for stressor in r.stressors.all %}
-                  <span class="badge rounded-pill shadow-sm bg-stressor-badge">{{ stressor.title }}</span>
-                {% endfor %}          
-              </div>
-            </li>
-            {% if r.note %}
-              <li class="list-group-item">
-                <div class="rounded w-100 shadow-sm" style="border:1px solid #DDDDDD; padding:10px;">
-                <div class="mx-auto w-100">
-                    <span><em>{{ r.note }}</em></span>
-                </div>
-                </div>
-              </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>      
+      {% empty %}
+        <div class="card mb-4 shadow">
+          <div class="card-body">
+            {{ lang.MAINPAGE_NO_RECORDS }}
+          </div>
+        </div>    
 
-    {% empty %}
-
-      <div class="card mb-4 shadow">
-        <div class="card-body">
-          {{ lang.MAINPAGE_NO_RECORDS }}
-        </div>
-      </div>
-
-    {% endfor %}
+      {% endfor %}
+    </div>
 
     <div class="mb-4">&nbsp;</div>
 
   </div>
 </main>
+
+<script src="{% static 'js/pagination.js' %}"></script>
+
 {% endblock %}
