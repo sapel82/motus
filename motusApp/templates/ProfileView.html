@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<main class="container-fluid p0 m0">
+<main class="container-fluid p0 m0 motus-content">
 
   <div class="content mx-auto">
 
@@ -64,12 +64,12 @@
 
     <div class="card mb-4 shadow">
       <h6 class="card-header">
-        Ressourcen
+        {{ lang.PROFILE_RESOURCES }}
       </h6>
       <div class="card-body row mx-auto">
 
         {% if not user_ressources %}
-          Noch nicht ausgewählt
+          {{ lang.PROFILE_NO_RESOURCES }}
         {% endif %}
 
         {% for r in user_ressources %}
@@ -81,9 +81,12 @@
 
       </div>
     </div>
-    <br />
-
-
+    <div class="mb-4">
+      <form action="/app/change_resources/">
+        <button class="btn btn-primary motus-button">{{ lang.PROFILE_CHANGE_RESOURCES_BUTTON }}</button>
+      </form>
+    </div>
+    <div class="mb-4">&nbsp;</div>
 
 
 

@@ -67,7 +67,17 @@ urlpatterns = [
         'alltime_data/',
         alltime_data,
         name='AllTimeData'
-    ),    
+    ),   
+    path(
+        'version/',
+        app_version,
+        name='version'
+    ),
+    path(
+        'change_resources/',
+        app_change_resources,
+        name='ChangeResources'
+    ),
     path(
         'test/',
         app_test,

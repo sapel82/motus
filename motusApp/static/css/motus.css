@@ -163,6 +163,10 @@ a.dropdown-item:hover {
 
 /* Content */
 /***********************************************************************************************/
+.motus-content {
+    max-width: 1000px;
+}
+
 .modal-header {
     color: var(--white-color);
     background-color: var(--brand-color);

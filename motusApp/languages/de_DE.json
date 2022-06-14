@@ -7,7 +7,7 @@
   "MOTUS_NAV_LOGOUT": "Ausloggen",
 
   "MAIL_REGISTER_SUBJECT": "Willkommen bei motus - Registrierungsmail",
-  "MAIL_REGISTER_MSG": "Hallo {username},\num deinen Account zu aktivieren, klickte bitte auf den folgenden Link.\n\nhttp://78.47.48.92:8000/app/activate/{activation_code}/",
+  "MAIL_REGISTER_MSG": "Hallo {username},\num deinen Account zu aktivieren, klickte bitte auf den folgenden Link.\n\nhttp://78.47.48.92:1505/app/activate/{activation_code}/",
 
   "ERROR_STANDARD": "Huch, da stimmt etwas nicht",
 
@@ -83,6 +83,9 @@
   "SET_RESSOURCES_NOT_ENOUGH_RESSOURCES": "Bitte wähle mindestens 5 Ressourcen",
 
   "PROFILE_WELCOME_MSG": "Dein Profil",
+  "PROFILE_RESOURCES": "Ressourcen",
+  "PROFILE_NO_RESOURCES": "Noch nicht ausgewählt",
+  "PROFILE_CHANGE_RESOURCES_BUTTON": "Ressourcen neu auswählen",
 
   "MAINPAGE_WELCOME_MSG": "Deine Startseite",
   "MAINPAGE_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen",

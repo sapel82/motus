@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<main class="container-fluid p0 m0">
+<main class="container-fluid p0 m0 motus-content">
   <div class="content mx-auto">
 
     <h3 class="mb-3">
@@ -47,7 +47,11 @@
       </div>
     </div>
 
-    <form action="/app/fill_profile/" method="POST" onsubmit="return countMoodFactors();">
+    {% if update %}
+      <form action="/app/profile/" method="GET" onsubmit="return countMoodFactors();">
+    {% else %}
+      <form action="/app/fill_profile/" method="POST" onsubmit="return countMoodFactors();">
+    {% endif %}
       {% csrf_token %}
       <input type="hidden" value="2" name="new_profile_level" />
       <button class="btn btn-primary btn-lg motus-button mb-2" id="submitRessources" name="submitRessources">{{ lang.SET_RESSOURCES_CONTINUE }}</button>

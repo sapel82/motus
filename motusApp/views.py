@@ -32,6 +32,10 @@ def app_test(request):
     return HttpResponse('OK')
 
 
+def app_version(request):
+    return HttpResponse(json.dumps({'version': 130620221337})) 
+
+
 @method_decorator(decorators, name='dispatch')
 class StatisticsView(TemplateView):
     """ Statistics View """
@@ -344,7 +348,23 @@ class RegistrationView(TemplateView):
         context['lang'] = lang
         return context
 
+@login_required
+def app_change_resources(request):
+    """ Change user resources """
+    user = request.user
+    return render(
+        request, 
+        'SetRessourcesView.html', 
+        context={
+            'user': user, 
+            'lang': lang, 
+            'ressources': Ressource.objects.all(), 
+            'user_ressources': user.ressources.all(),
+            'update': True
+        }
+    )
 
+@login_required
 def app_set_ressource(request, id: int):
     """ Activate/Deactivate a ressource for a user profile """
     user = request.user
