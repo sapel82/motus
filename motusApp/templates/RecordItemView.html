@@ -13,7 +13,7 @@
               {% else %}
                 {% firstof "greyscale" as gs %}
               {% endif %}
-              <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" style="float:left; width:10%; height:auto; max-width: 5%;">
+              <div class="mood-container shadow-sm rounded mb-2 mx-auto justify-content-center" style="float:left; ">
                 <img class="row mx-auto mood-img {{ gs }}" src="{% static 'media/icons/mood_' %}{{ i }}.png" alt="mood {{ r.mood }}">
               </div>
             {% endfor %}

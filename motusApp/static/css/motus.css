@@ -30,8 +30,19 @@
 /* Breakpoints */
 /***********************************************************************************************/
 @media (min-width: 320px) {
-    .display-6 {font-size:1.7rem !important;}
 
+    .display-6 {font-size:1.7rem !important;}
+}
+
+@media (min-width: 380px) {
+    .mood-container {
+        min-width: 55px !important;
+        min-height: auto !important;
+    }
+
+    .badge-font {
+        font-size: 18px !important;
+    }
 }
 
 @media (min-width: 480px) {
@@ -40,7 +51,6 @@
     }
 
     .display-6 {font-size:2.0rem !important;}
-
 }
 
 @media (min-width: 768px) {
@@ -104,7 +114,11 @@
 .greyscale { filter: grayscale(100%); }
 
 .bg-ressource-badge { background-color: #5ea744; }   /*3ba239   3fa64d*/   
-.bg-stressor-badge { background-color: #e28169; }    /*de6f54      ff8080     ff6666*/       
+.bg-stressor-badge { background-color: #e28169; }    /*de6f54      ff8080     ff6666*/    
+
+.badge-font {
+    font-size: 14px;
+}
 /***********************************************************************************************/
 
 
@@ -232,15 +246,15 @@ a.dropdown-item:hover {
     padding: 5px;
     border: 1px solid var(--border-color-brighter);
     width: 19%;
-    max-width: 19%;
     height: auto;
-    min-width: 55px;
+    max-width: 50px;
+    max-height: auto;
+    min-width: 50px;
 }
 
 .mood-img {
     width: 100%;
     height: auto;
-    max-width: 100px;
     vertical-align: middle;
 }
 
