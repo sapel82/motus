@@ -116,9 +116,13 @@
 .bg-ressource-badge { background-color: #5ea744; }   /*3ba239   3fa64d*/   
 .bg-stressor-badge { background-color: #e28169; }    /*de6f54      ff8080     ff6666*/    
 
-.badge-font {
-    font-size: 14px;
-}
+.badge-font { font-size: 14px; }
+
+mark { 
+    background-color: var(--brand-color);
+    color: var(--white-color);
+    padding: 3px;
+  }
 /***********************************************************************************************/
 
 

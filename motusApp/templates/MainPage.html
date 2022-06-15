@@ -26,8 +26,9 @@
       <div class="text-center">
         <form action="/app/add_record/" method="GET">
           {% csrf_token %}
-          <button class="btn btn-primary btn-lg motus-button shadow mb-4 disabled" style="background-color: grey; border-color: grey;"><i class="fas fa-circle-plus"></i> {{ lang.MAINPAGE_ADD_NEW_RECORD_NOT_AVAILABLE }}</button>
+          <button class="btn btn-primary btn-lg motus-button shadow disabled mb-2" style="background-color: grey; border-color: grey;"><i class="fas fa-circle-plus"></i> {{ lang.MAINPAGE_ADD_NEW_RECORD_NOT_AVAILABLE }}</button>
         </form>
+        <div class="row mx-auto w-80 text-center mb-4 f-size-12"><small><em>{{ next_record | safe }}</em></small></div>
         </div>
 
     {% endif %}

@@ -91,6 +91,12 @@
   "MAINPAGE_NO_RECORDS": "Du hast noch keine Eintragungen vorgenommen",
   "MAINPAGE_ADD_NEW_RECORD": "Neuen Eintrag vornehmen",
   "MAINPAGE_ADD_NEW_RECORD_NOT_AVAILABLE": "Jetzt nicht möglich",
+  "MAINPAGE_NEXT_REC_TIME_1": "Nächster Eintrag möglich in {minutes} Minute",
+  "MAINPAGE_NEXT_REC_TIME_2": "Nächster Eintrag möglich in {minutes} Minuten",
+  "MAINPAGE_NEXT_REC_TIME_3": "Nächster Eintrag möglich in {hours} Stunde und {minutes} Minute",
+  "MAINPAGE_NEXT_REC_TIME_4": "Nächster Eintrag möglich in {hours} Stunde und {minutes} Minuten",
+  "MAINPAGE_NEXT_REC_TIME_5": "Nächster Eintrag möglich in {hours} Stunden und {minutes} Minute",
+  "MAINPAGE_NEXT_REC_TIME_6": "Nächster Eintrag möglich in {hours} Stunden und {minutes} Minuten",
 
   "ADD_RECORD_WELCOME_MSG": "Eintragung vornehmen",
   "ADD_RECORD_MOOD_QUESTION": "Wie ist deine Stimmung?",

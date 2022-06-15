@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from smtplib import SMTPAuthenticationError
 from motusAPI.models import *
 from motusApp.decorators import motus_called_from_app
-from motusApp.helpers import AddRecordTimeVar, GMail, AddRecordTimeVar
+from motusApp.helpers import AddRecordTimeVar, GMail, AddRecordTimeVar, next_record_time_string
 from motus.config import lang
 import json
 import collections
@@ -29,11 +29,57 @@ if settings.DEBUG == False:
 
 
 def app_test(request):
-    return HttpResponse('OK')
+
+    user = request.user
+
+    today = timezone.now()
+    start_date = today - timedelta(days=-1, weeks=1)
+
+    mood_points = 0
+    resource_points = 0
+    resource_multiplicator = 0.1
+    stressor_points = 0
+    stressor_multiplicator = 0.05
+    possible_mood_points = 3 * 5 * 7 + (0.1 * 5 * 3 * 7)
+    
+    for dt in date_range(start_date, today):
+        records = Record.objects.user_records_for_day(user, dt)
+        if records:
+            for r in records:
+
+                mood_points += r.mood
+                
+                resources = r.ressources.all().count()
+                if resources < 5:
+                    resource_points += resources * resource_multiplicator
+                else:
+                    resource_points += 5 * resource_multiplicator
+
+                stressors = r.stressors.all().count()
+                if stressors < 5:
+                    stressor_points += stressors * stressor_multiplicator
+                else:
+                    stressor_points += 5 * stressor_multiplicator
+
+    total_points = mood_points + resource_points - stressor_points
+    score = ((total_points / possible_mood_points) * 100) / 10
+                
+    print("Mood Points: ", mood_points)
+    print("Resource Points: ", resource_points)
+    print("Stressor Points: ", stressor_points)
+    print("Total Points: ", total_points)
+    print("Score: ", score)
+    print("")
+    print("Possible Mood Points:", 3*5*7)
+    print("Possible Resources Points: ", 0.1 * 5 * 3 * 7)
+    print("Possible Stressors Points: ", -0.05 * 5 * 3 * 7)
+
+    return HttpResponse("")
+
 
 
 def app_version(request):
-    return HttpResponse(json.dumps({'version': 130620221337})) 
+    return HttpResponse(json.dumps({'version': 140620221423})) 
 
 
 @method_decorator(decorators, name='dispatch')
@@ -140,6 +186,7 @@ class MainPageView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
+
         if user.profile_level == 2:
 
             if user.can_add_record():
@@ -159,7 +206,13 @@ class MainPageView(TemplateView):
                 records_page = paginator.Page([], page, p)
 
             if not request.is_ajax():
-                context = {'user': user, 'lang': lang, 'records': records_page, 'can_add_record': self.can_add_record}
+                context = {
+                    'user': user, 
+                    'lang': lang, 
+                    'records': records_page, 
+                    'can_add_record': self.can_add_record, 
+                    'next_record': next_record_time_string()
+                }
                 return render(request, self.template_name, context=context)
             else:
                 content = ''

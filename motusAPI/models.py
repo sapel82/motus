@@ -162,6 +162,7 @@ class User(AbstractBaseUser):
     activation_code = models.IntegerField(unique=True, default=123456789, verbose_name='Aktivierungscode')
     language = models.CharField(max_length=5, default='de_DE', verbose_name='Gewählte Sprache')
     profile_level = models.IntegerField(default=0, verbose_name='Profilkomplettierung')
+    last_visit = models.DateTimeField(default=None, blank=True, null=True, verbose_name='Letzter Login')
     records = models.ManyToManyField(Record)
     ressources = models.ManyToManyField(Ressource)
     stressors = models.ManyToManyField(Stressor)
